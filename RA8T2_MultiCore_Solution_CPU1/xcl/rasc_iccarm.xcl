@@ -1,14 +1,14 @@
 // generated extended command line file - do not edit
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1"
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra_gen"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc/instances"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra_cfg/fsp_cfg/bsp"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/src/rm_ethercat_ssc_port"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/arm/CMSIS_6/CMSIS/Core/Include"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra_cfg/fsp_cfg"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc/api"
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/src"
--D_RA_ORDINAL=2
--D_RENESAS_RA_
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc/api"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra_cfg/fsp_cfg"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/arm/CMSIS_6/CMSIS/Core/Include"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/src/rm_ethercat_ssc_port"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra_cfg/fsp_cfg/bsp"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1/ra/fsp/inc/instances"
 -D_RA_CORE=CPU1
+-D_RENESAS_RA_
+-D_RA_ORDINAL=2

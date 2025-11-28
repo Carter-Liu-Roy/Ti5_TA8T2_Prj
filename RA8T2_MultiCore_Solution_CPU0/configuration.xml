@@ -370,6 +370,8 @@
   <raElcConfiguration>
     <eventProduced event="event.gpt4.capture.compare.a"/>
     <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0"/>
+    <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0b"/>
+    <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0c"/>
   </raElcConfiguration>
   <raIcuConfiguration/>
   <raModuleConfiguration>
@@ -440,7 +442,7 @@
       <property id="module.driver.timer.poeg_link" value="enum.driver.poeg.channels.poeg_link_poeg0"/>
       <property id="module.driver.timer.output_disable" value=""/>
       <property id="module.driver.timer.adc_trigger" value="module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"/>
-      <property id="module.driver.timer.adc_a_compare_match" value="1000"/>
+      <property id="module.driver.timer.adc_a_compare_match" value="2000"/>
       <property id="module.driver.timer.adc_b_compare_match" value="0"/>
       <property id="module.driver.timer.dead_time_count_up" value="0"/>
       <property id="module.driver.timer.dead_time_count_down" value="0"/>
@@ -573,7 +575,7 @@
     <module id="module.driver.adc_on_adc_b.1795181385">
       <property id="module.driver.adc.name" value="g_adc0"/>
       <property id="module.driver.adc.adc_0_method" value="module.driver.adc.adc_0_method.sar_mode"/>
-      <property id="module.driver.adc.adc_0_mode" value="module.driver.adc.adc_0_mode.continuous_scan"/>
+      <property id="module.driver.adc.adc_0_mode" value="module.driver.adc.adc_0_mode.single_scan"/>
       <property id="module.driver.adc.adc_1_method" value="module.driver.adc.adc_1_method.sar_mode"/>
       <property id="module.driver.adc.adc_1_mode" value="module.driver.adc.adc_1_mode.single_scan"/>
       <property id="module.driver.adc.adc_0_conversion_state" value="5"/>
@@ -588,17 +590,17 @@
       <property id="module.driver.adc.adc_clock_divider" value="module.driver.adc.adc_clock_divider.div_2"/>
       <property id="module.driver.adc.adc_clock_source" value="module.driver.adc.adc_clock_source.adcclk"/>
       <property id="module.driver.adc.p_callback" value="g_adc_scan_end"/>
-      <property id="module.driver.adc.limit_clip_ipl" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.conversion_error_ipl_adc_0" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.conversion_error_ipl_adc_1" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.overflow_error_ipl_adc_0" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.overflow_error_ipl_adc_1" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.adc.limit_clip_ipl" value="_disabled"/>
+      <property id="module.driver.adc.conversion_error_ipl_adc_0" value="_disabled"/>
+      <property id="module.driver.adc.conversion_error_ipl_adc_1" value="_disabled"/>
+      <property id="module.driver.adc.overflow_error_ipl_adc_0" value="_disabled"/>
+      <property id="module.driver.adc.overflow_error_ipl_adc_1" value="_disabled"/>
       <property id="module.driver.adc.calibration_end_ipl_adc" value="board.icu.common.irq.priority12"/>
       <property id="module.driver.adc.scan_end_ipl_group_0" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.scan_end_ipl_group_1" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.scan_end_ipl_group_2" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.scan_end_ipl_group_3" value="board.icu.common.irq.priority12"/>
-      <property id="module.driver.adc.scan_end_ipl_group_4" value="board.icu.common.irq.priority12"/>
+      <property id="module.driver.adc.scan_end_ipl_group_1" value="_disabled"/>
+      <property id="module.driver.adc.scan_end_ipl_group_2" value="_disabled"/>
+      <property id="module.driver.adc.scan_end_ipl_group_3" value="_disabled"/>
+      <property id="module.driver.adc.scan_end_ipl_group_4" value="_disabled"/>
       <property id="module.driver.adc.scan_end_ipl_group_5" value="_disabled"/>
       <property id="module.driver.adc.scan_end_ipl_group_6" value="_disabled"/>
       <property id="module.driver.adc.scan_end_ipl_group_7" value="_disabled"/>
@@ -689,8 +691,8 @@
       <property id="module.driver.adc.limiter_clip_upper_6" value="0"/>
       <property id="module.driver.adc.limiter_clip_lower_7" value="0"/>
       <property id="module.driver.adc.limiter_clip_upper_7" value="0"/>
-      <property id="module.driver.adc.virtual_channel_0_scan_group" value="module.driver.adc.virtual_channel_0_scan_group.none"/>
-      <property id="module.driver.adc.virtual_channel_0_channel_select" value="module.driver.adc.virtual_channel_0_channel_select.an002"/>
+      <property id="module.driver.adc.virtual_channel_0_scan_group" value="module.driver.adc.virtual_channel_0_scan_group.scan_group_0"/>
+      <property id="module.driver.adc.virtual_channel_0_channel_select" value="module.driver.adc.virtual_channel_0_channel_select.an000"/>
       <property id="module.driver.adc.virtual_channel_0_sampling_table_id" value="module.driver.adc.virtual_channel_0_sampling_table_id.sampling_state_entry_0"/>
       <property id="module.driver.adc.virtual_channel_0_gain_table" value="module.driver.adc.virtual_channel_0_gain_table.disabled"/>
       <property id="module.driver.adc.virtual_channel_0_offset_table" value="module.driver.adc.virtual_channel_0_offset_table.disabled"/>
@@ -703,8 +705,8 @@
       <property id="module.driver.adc.virtual_channel_0_input_mode" value=""/>
       <property id="module.driver.adc.virtual_channel_0_data_is_unsigned" value="module.driver.adc.virtual_channel_0_data_is_unsigned.signed"/>
       <property id="module.driver.adc.virtual_channel_0_data_sign_setting" value=""/>
-      <property id="module.driver.adc.virtual_channel_1_scan_group" value="module.driver.adc.virtual_channel_1_scan_group.none"/>
-      <property id="module.driver.adc.virtual_channel_1_channel_select" value="module.driver.adc.virtual_channel_1_channel_select.an000"/>
+      <property id="module.driver.adc.virtual_channel_1_scan_group" value="module.driver.adc.virtual_channel_1_scan_group.scan_group_0"/>
+      <property id="module.driver.adc.virtual_channel_1_channel_select" value="module.driver.adc.virtual_channel_1_channel_select.an001"/>
       <property id="module.driver.adc.virtual_channel_1_sampling_table_id" value="module.driver.adc.virtual_channel_1_sampling_table_id.sampling_state_entry_0"/>
       <property id="module.driver.adc.virtual_channel_1_gain_table" value="module.driver.adc.virtual_channel_1_gain_table.disabled"/>
       <property id="module.driver.adc.virtual_channel_1_offset_table" value="module.driver.adc.virtual_channel_1_offset_table.disabled"/>
@@ -717,8 +719,8 @@
       <property id="module.driver.adc.virtual_channel_1_input_mode" value=""/>
       <property id="module.driver.adc.virtual_channel_1_data_is_unsigned" value="module.driver.adc.virtual_channel_1_data_is_unsigned.signed"/>
       <property id="module.driver.adc.virtual_channel_1_data_sign_setting" value=""/>
-      <property id="module.driver.adc.virtual_channel_2_scan_group" value="module.driver.adc.virtual_channel_2_scan_group.none"/>
-      <property id="module.driver.adc.virtual_channel_2_channel_select" value="module.driver.adc.virtual_channel_2_channel_select.an000"/>
+      <property id="module.driver.adc.virtual_channel_2_scan_group" value="module.driver.adc.virtual_channel_2_scan_group.scan_group_0"/>
+      <property id="module.driver.adc.virtual_channel_2_channel_select" value="module.driver.adc.virtual_channel_2_channel_select.an002"/>
       <property id="module.driver.adc.virtual_channel_2_sampling_table_id" value="module.driver.adc.virtual_channel_2_sampling_table_id.sampling_state_entry_0"/>
       <property id="module.driver.adc.virtual_channel_2_gain_table" value="module.driver.adc.virtual_channel_2_gain_table.disabled"/>
       <property id="module.driver.adc.virtual_channel_2_offset_table" value="module.driver.adc.virtual_channel_2_offset_table.disabled"/>
@@ -1214,7 +1216,7 @@
       <property id="module.driver.adc.scan_group_0_scan_end_isr_enable" value="module.driver.adc.scan_group_0_scan_end_isr_enable.enable"/>
       <property id="module.driver.adc.scan_group_0_external_trigger_enable_mask" value=""/>
       <property id="module.driver.adc.scan_group_0_elc_trigger_enable_mask" value=""/>
-      <property id="module.driver.adc.scan_group_0_gpt_trigger_enable_mask" value=""/>
+      <property id="module.driver.adc.scan_group_0_gpt_trigger_enable_mask" value="module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_0_request_a"/>
       <property id="module.driver.adc.scan_group_0_limit_clip_isr_enable" value="module.driver.adc.scan_group_0_limit_clip_isr_enable.disable"/>
       <property id="module.driver.adc.scan_group_0_fifo_enable" value="module.driver.adc.scan_group_0_fifo_enable.disable"/>
       <property id="module.driver.adc.scan_group_0_fifo_isr_enable" value="module.driver.adc.scan_group_0_fifo_isr_enable.disable"/>

@@ -12,7 +12,10 @@ uint8_t g_compareA = false;
 uint8_t g_compareB = false;
 
 void g_gpt4_callback(timer_callback_args_t * p_args){
-
+  if(p_args->event == TIMER_EVENT_COMPARE_A){
+  g_compareA = false;
+  
+  }
 
 }
 void g_timer3_50us_interrupt(timer_callback_args_t * p_args){
@@ -97,9 +100,16 @@ void user_uart_callback(uart_callback_args_t * p_args){
     }
 
 }
+uint16_t  p_adc_data[3];
 
 void g_adc_scan_end(adc_callback_args_t * p_args){
-adc_end_flg = true;
+
+  if(p_args->event == ADC_EVENT_SCAN_COMPLETE){
+    R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_0, &p_adc_data[0]);
+    R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_1, &p_adc_data[1]);
+    R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_2, &p_adc_data[2]);
+  }
+  adc_end_flg = true;
 
 }
 
@@ -149,7 +159,7 @@ void hal_entry(void)
     /* Enter non-secure code */
     R_BSP_NonSecureEnter();
 #endif
-        R_IPC_Open(&g_ipc0_ctrl, &g_ipc0_cfg);//0: receive data from core 0
+    R_IPC_Open(&g_ipc0_ctrl, &g_ipc0_cfg);//0: receive data from core 0
     R_IPC_Open(&g_ipc1_ctrl, &g_ipc1_cfg);//1: send data yo core 0
     R_IPC_MessageSend(&g_ipc0_ctrl, g_last_message_send);
 #if 0
@@ -218,7 +228,21 @@ void hal_entry(void)
    // R_GPT_THREE_PHASE_Start(&g_three_phase0_ctrl);
     
     #endif
-    
+    adc_end_flg = false;
+    R_ADC_B_Open(&g_adc0_ctrl, &g_adc0_cfg);
+    R_ADC_B_ScanCfg(&g_adc0_ctrl, &g_adc0_scan_cfg);
+    R_BSP_IrqEnable((IRQn_Type) ADC_EVENT_SCAN_COMPLETE);
+   // R_ADC_B_ScanStart(&g_adc0_ctrl);
+    R_ADC_B->ADTRGGPT0_b.TRGGPTAm = 0x10;//ADTRGGPT0.TRGGPTA4 = 1 :config ch0 trigger to be GPT ch4 cmp a
+    R_ADC_B->ADTRGGPT1_b.TRGGPTAm = 0x10;//ADTRGGPT1.TRGGPTA4 = 1
+    R_ADC_B->ADTRGGPT2_b.TRGGPTAm = 0x10;//ADTRGGPT2.TRGGPTA4 = 1
+   
+    R_ADC_B->ADTRGENR_b.STTRGENn = 1; // STTRGEN0 = 1: Enable the A/D conversion start trigger
+    R_GPT_THREE_PHASE_Open(&g_three_phase0_ctrl, &g_three_phase0_cfg);
+   
+   // R_ELC_Open(&g_elc_ctrl, &g_elc_cfg);
+  //  R_ELC_Enable(&g_elc_ctrl);
+    R_GPT_THREE_PHASE_Start(&g_three_phase0_ctrl);
     while(1){
 #if 0
       for(uint8_t cnt = 0; cnt<10;cnt++){//calculate 10 times

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <settings>
     <DebugChecksum>
-        <Checksum>1660585713</Checksum>
+        <Checksum>2412792225</Checksum>
     </DebugChecksum>
     <PlDriver>
         <FirstRun>0</FirstRun>
@@ -72,6 +72,9 @@
         <EnableCache>0</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
     </ArmDriver>
+    <struct_types>
+        <Fmt0>timer_callback_args_t-capture	4	0</Fmt0>
+    </struct_types>
     <Trace2>
         <Enabled>0</Enabled>
         <ShowSource>0</ShowSource>
@@ -152,8 +155,8 @@
     </DisassembleMode>
     <Breakpoints2>
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\RA8T2_MultiCore_Solution_CPU1\src\hal_entry.c}.35.1" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\src\hal_entry.c}.102.1" 0 0 1 "" 0 "" 0</Bp1>
-        <Bp2>_ 1 "EMUL_CODE" "{$PROJ_DIR$\ra\fsp\src\r_adc_b\r_adc_b.c}.1407.5" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\ra\fsp\src\r_adc_b\r_adc_b.c}.1407.5" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 1 "EMUL_CODE" "{$PROJ_DIR$\src\hal_entry.c}.245.5" 0 0 1 "" 0 "" 0</Bp2>
         <Count>3</Count>
     </Breakpoints2>
 </settings>

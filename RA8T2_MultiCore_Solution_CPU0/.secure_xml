@@ -197,12 +197,12 @@
       <configSetting altId="esc1.cat1_tx_en.p310" configurationId="esc1.cat1_tx_en" peripheral="ESC1"/>
       <configSetting altId="ethphyclk.ethphyclk.p308" configurationId="ethphyclk.ethphyclk" peripheral="ETHPHYCLK"/>
       <configSetting altId="gpt0.gtioc0a.p213" configurationId="gpt0.gtioc0a" isUsedByDriver="true" peripheral="GPT0"/>
-      <configSetting altId="gpt4.gtioc4a.p205" configurationId="gpt4.gtioc4a" peripheral="GPT4"/>
-      <configSetting altId="gpt4.gtioc4b.p204" configurationId="gpt4.gtioc4b" peripheral="GPT4"/>
-      <configSetting altId="gpt5.gtioc5a.p203" configurationId="gpt5.gtioc5a" peripheral="GPT5"/>
-      <configSetting altId="gpt5.gtioc5b.p202" configurationId="gpt5.gtioc5b" peripheral="GPT5"/>
-      <configSetting altId="gpt6.gtioc6a.p400" configurationId="gpt6.gtioc6a" peripheral="GPT6"/>
-      <configSetting altId="gpt6.gtioc6b.p401" configurationId="gpt6.gtioc6b" peripheral="GPT6"/>
+      <configSetting altId="gpt4.gtioc4a.p205" configurationId="gpt4.gtioc4a" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt4.gtioc4b.p204" configurationId="gpt4.gtioc4b" isUsedByDriver="true" peripheral="GPT4"/>
+      <configSetting altId="gpt5.gtioc5a.p203" configurationId="gpt5.gtioc5a" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt5.gtioc5b.p202" configurationId="gpt5.gtioc5b" isUsedByDriver="true" peripheral="GPT5"/>
+      <configSetting altId="gpt6.gtioc6a.p400" configurationId="gpt6.gtioc6a" isUsedByDriver="true" peripheral="GPT6"/>
+      <configSetting altId="gpt6.gtioc6b.p401" configurationId="gpt6.gtioc6b" isUsedByDriver="true" peripheral="GPT6"/>
       <configSetting altId="jtag_fslash_swd.tck.p211" configurationId="jtag_fslash_swd.tck" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.tdi.p208" configurationId="jtag_fslash_swd.tdi" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.tdo.p209" configurationId="jtag_fslash_swd.tdo" peripheral="JTAG/SWD"/>

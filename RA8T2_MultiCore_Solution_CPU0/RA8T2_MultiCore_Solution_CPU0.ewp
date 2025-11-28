@@ -1113,40 +1113,7 @@
         <settings>
             <name>BUILDACTION</name>
             <archiveVersion>2</archiveVersion>
-            <data>
-                <buildActions>
-                    <buildAction>
-                        <cmdline>cmd /c ""$PROJ_DIR$\rasc_launcher.bat" "$PROJ_DIR$\rasc_version.txt" -nosplash --launcher.suppressErrors --generate --compiler IAR --devicefamily $RASC_DEVICE_FAMILY$ "$PROJ_DIR$\configuration.xml" 2&gt; "$BUILD_FILES_DIR$\.rasc_stderr.txt" &amp;&amp; echo. &gt; "$BUILD_FILES_DIR$\$TARGET_BNAME$.rasc""</cmdline>
-                        <workingDirectory>$PROJ_DIR$</workingDirectory>
-                        <buildSequence>preCompile</buildSequence>
-                        <outputs>
-                            <file>
-                                <name>$BUILD_FILES_DIR$/$TARGET_BNAME$.rasc</name>
-                            </file>
-                        </outputs>
-                        <dependencies>
-                            <file>
-                                <name>configuration.xml</name>
-                            </file>
-                        </dependencies>
-                    </buildAction>
-                    <buildAction>
-                        <cmdline>cmd /c ""$PROJ_DIR$\rasc_launcher.bat" "$PROJ_DIR$\rasc_version.txt" -nosplash --launcher.suppressErrors --gensmartbundle --compiler IAR --devicefamily $RASC_DEVICE_FAMILY$ "$PROJ_DIR$\configuration.xml" "$TARGET_PATH$" 2&gt; "$BUILD_FILES_DIR$\.rasc_stderr.txt""</cmdline>
-                        <workingDirectory>$PROJ_DIR$</workingDirectory>
-                        <buildSequence>postLink</buildSequence>
-                        <outputs>
-                            <file>
-                                <name>$TARGET_BPATH$.sbd</name>
-                            </file>
-                        </outputs>
-                        <dependencies>
-                            <file>
-                                <name>$TARGET_PATH$</name>
-                            </file>
-                        </dependencies>
-                    </buildAction>
-                </buildActions>
-            </data>
+            <data />
         </settings>
     </configuration>
     <configuration>
