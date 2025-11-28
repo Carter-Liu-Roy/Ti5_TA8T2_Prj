@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sessionSetup><partner><name>Partner0</name><workspace>$WS_PATH$</workspace><project>$PROJ_PATH$</project><config>Debug</config><numberOfCores>1</numberOfCores></partner><partner><name>Partner1</name><workspace>C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU1\RA8T2_MultiCore_Solution_CPU1.eww</workspace><project>RA8T2_MultiCore_Solution_CPU1.eww</project><config/><numberOfCores>1</numberOfCores><attachToRunningTarget>true</attachToRunningTarget></partner></sessionSetup>

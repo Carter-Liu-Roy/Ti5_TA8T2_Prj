@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workspace>
+    <project>
+        <path>$WS_DIR$\RA8T2_MultiCore_Solution.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\..\RA8T2_MultiCore_Solution_CPU0\RA8T2_MultiCore_Solution_CPU0.ewp</path>
+    </project>
+    <project>
+        <path>$WS_DIR$\..\RA8T2_MultiCore_Solution_CPU1\RA8T2_MultiCore_Solution_CPU1.ewp</path>
+    </project>
+    <batchBuild>
+        <batchDefinition>
+            <name>RA8T2_MultiCore_Solution solution projects</name>
+            <member>
+                <project>RA8T2_MultiCore_Solution_CPU0</project>
+                <configuration>Debug</configuration>
+            </member>
+            <member>
+                <project>RA8T2_MultiCore_Solution_CPU1</project>
+                <configuration>Debug</configuration>
+            </member>
+            <member>
+                <project>RA8T2_MultiCore_Solution</project>
+                <configuration>Debug</configuration>
+            </member>
+        </batchDefinition>
+    </batchBuild>
+</workspace>

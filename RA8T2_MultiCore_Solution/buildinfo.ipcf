@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<iarProjectConnection version="1.8" name="Flex Software">
+    <device>
+        <name>R7KA8T2LF_CPU0</name>
+    </device>
+    <linkerFile>
+        <override>true</override>
+        <path>$PROJ_DIR$/null</path>
+    </linkerFile>
+    <extraOptions>
+        <arg>-f "$PROJ_DIR$/xcl/rasc_iccarm"</arg>
+    </extraOptions>
+    <linkerExtraOptions>
+        <arg>-f "$PROJ_DIR$/xcl/rasc_ilinkarm"</arg>
+    </linkerExtraOptions>
+    <customArgVars>
+        <group name="RA Smart Configurator">
+            <argVar>
+                <name>RASC_EXE_PATH</name>
+                <value>C:\Renesas\RA\sc_v2025-10_fsp_v6.2.0\eclipse\rasc.exe</value>
+            </argVar>
+            <argVar>
+                <name>RASC_DEVICE_FAMILY</name>
+                <value>ra</value>
+            </argVar>
+        </group>
+    </customArgVars>
+    <files/>
+</iarProjectConnection>

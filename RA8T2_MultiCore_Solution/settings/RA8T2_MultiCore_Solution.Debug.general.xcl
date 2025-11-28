@@ -1,0 +1,17 @@
+C:\iar\ewarm-9.70.2\arm\bin\armproc.dll
+
+ C:\iar\ewarm-9.70.2\arm\bin\armjlink.dll
+
+ C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution\Debug\Exe\RA8T2_MultiCore_Solution.out
+
+ --plugin=C:\iar\ewarm-9.70.2\arm\bin\armLibSupportUniversal.dll
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7KA8_DBGv1.dmac
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7KA8_CLOCKv1.dmac
+
+ --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7KA8T2_CPU0.dmac
+
+ 
+
+

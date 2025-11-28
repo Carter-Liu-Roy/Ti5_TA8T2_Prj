@@ -1,0 +1,4 @@
+// generated extended command line file - do not edit
+-D_RENESAS_RA_
+-D_RA_CORE=CPU0
+-D_RA_ORDINAL=1
