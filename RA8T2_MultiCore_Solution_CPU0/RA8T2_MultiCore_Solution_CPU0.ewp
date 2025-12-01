@@ -2710,9 +2710,6 @@
     </group>
     <group>
         <name>userApp</name>
-        <excluded>
-            <configuration>Debug</configuration>
-        </excluded>
         <file>
             <name>$PROJ_DIR$\user\mc_math.c</name>
         </file>
@@ -2723,6 +2720,15 @@
     <file>
         <name>$PROJ_DIR$\buildinfo.ipcf</name>
         <tag>IAR.ControlFile</tag>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\script\fsp.icf</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\fsp_gen.icf</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\memory_regions.icf</name>
     </file>
     <projectSettings>
         <general>

@@ -6,7 +6,7 @@
         #endif
                 /* Number of interrupts allocated */
         #ifndef VECTOR_DATA_IRQ_COUNT
-        #define VECTOR_DATA_IRQ_COUNT    (22)
+        #define VECTOR_DATA_IRQ_COUNT    (21)
         #endif
         /* ISR prototypes */
         void gpt_counter_overflow_isr(void);
@@ -71,10 +71,8 @@
         #define DMAC1_INT_IRQn          ((IRQn_Type) 19) /* DMAC1 INT (DMAC1 transfer end) */
         #define VECTOR_NUMBER_GPT0_CAPTURE_COMPARE_A ((IRQn_Type) 20) /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
         #define GPT0_CAPTURE_COMPARE_A_IRQn          ((IRQn_Type) 20) /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
-        #define VECTOR_NUMBER_GPT0_CAPTURE_COMPARE_B ((IRQn_Type) 21) /* GPT0 CAPTURE COMPARE B (Capture/Compare match B) */
-        #define GPT0_CAPTURE_COMPARE_B_IRQn          ((IRQn_Type) 21) /* GPT0 CAPTURE COMPARE B (Capture/Compare match B) */
         /* The number of entries required for the ICU vector table. */
-        #define BSP_ICU_VECTOR_NUM_ENTRIES (22)
+        #define BSP_ICU_VECTOR_NUM_ENTRIES (21)
 
         #ifdef __cplusplus
         }

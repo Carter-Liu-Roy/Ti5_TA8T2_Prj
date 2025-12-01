@@ -7,92 +7,6 @@
                      #define ADC_B_TRIGGER_ADC_B1        ADC_B_TRIGGER_SYNC_ELC
                      #define ADC_B_TRIGGER_ADC_B1_B      ADC_B_TRIGGER_SYNC_ELC
 
-
-dmac_instance_ctrl_t g_transfer3_ctrl;
-transfer_info_t g_transfer3_info =
-{
-    .transfer_settings_word_b.dest_addr_mode = TRANSFER_ADDR_MODE_FIXED,
-    .transfer_settings_word_b.repeat_area    = TRANSFER_REPEAT_AREA_SOURCE,
-    .transfer_settings_word_b.irq            = TRANSFER_IRQ_END,
-    .transfer_settings_word_b.chain_mode     = TRANSFER_CHAIN_MODE_DISABLED,
-    .transfer_settings_word_b.src_addr_mode  = TRANSFER_ADDR_MODE_FIXED,
-    .transfer_settings_word_b.size           = TRANSFER_SIZE_2_BYTE,
-    .transfer_settings_word_b.mode           = TRANSFER_MODE_NORMAL,
-    .p_dest                                  = (void *) NULL,
-    .p_src                                   = (void const *) NULL,
-    .num_blocks                              = 0,
-    .length                                  = 1,
-};
-const dmac_extended_cfg_t g_transfer3_extend =
-{
-    .offset              = 1,
-    .src_buffer_size     = 1,
-#if defined(VECTOR_NUMBER_DMAC3_INT)
-    .irq                 = VECTOR_NUMBER_DMAC3_INT,
-#else
-    .irq                 = FSP_INVALID_VECTOR,
-#endif
-    .ipl                 = (BSP_IRQ_DISABLED),
-    .channel             = 3,
-    .p_callback          = NULL,
-    .p_context           = NULL,
-    .activation_source   = ELC_EVENT_GPT0_CAPTURE_COMPARE_A,
-};
-const transfer_cfg_t g_transfer3_cfg =
-{
-    .p_info              = &g_transfer3_info,
-    .p_extend            = &g_transfer3_extend,
-};
-/* Instance structure to use this module. */
-const transfer_instance_t g_transfer3 =
-{
-    .p_ctrl        = &g_transfer3_ctrl,
-    .p_cfg         = &g_transfer3_cfg,
-    .p_api         = &g_transfer_on_dmac
-};
-
-dmac_instance_ctrl_t g_transfer2_ctrl;
-transfer_info_t g_transfer2_info =
-{
-    .transfer_settings_word_b.dest_addr_mode = TRANSFER_ADDR_MODE_FIXED,
-    .transfer_settings_word_b.repeat_area    = TRANSFER_REPEAT_AREA_SOURCE,
-    .transfer_settings_word_b.irq            = TRANSFER_IRQ_END,
-    .transfer_settings_word_b.chain_mode     = TRANSFER_CHAIN_MODE_DISABLED,
-    .transfer_settings_word_b.src_addr_mode  = TRANSFER_ADDR_MODE_FIXED,
-    .transfer_settings_word_b.size           = TRANSFER_SIZE_2_BYTE,
-    .transfer_settings_word_b.mode           = TRANSFER_MODE_NORMAL,
-    .p_dest                                  = (void *) NULL,
-    .p_src                                   = (void const *) NULL,
-    .num_blocks                              = 0,
-    .length                                  = 1,
-};
-const dmac_extended_cfg_t g_transfer2_extend =
-{
-    .offset              = 1,
-    .src_buffer_size     = 1,
-#if defined(VECTOR_NUMBER_DMAC2_INT)
-    .irq                 = VECTOR_NUMBER_DMAC2_INT,
-#else
-    .irq                 = FSP_INVALID_VECTOR,
-#endif
-    .ipl                 = (BSP_IRQ_DISABLED),
-    .channel             = 2,
-    .p_callback          = NULL,
-    .p_context           = NULL,
-    .activation_source   = ELC_EVENT_GPT0_CAPTURE_COMPARE_A,
-};
-const transfer_cfg_t g_transfer2_cfg =
-{
-    .p_info              = &g_transfer2_info,
-    .p_extend            = &g_transfer2_extend,
-};
-/* Instance structure to use this module. */
-const transfer_instance_t g_transfer2 =
-{
-    .p_ctrl        = &g_transfer2_ctrl,
-    .p_cfg         = &g_transfer2_cfg,
-    .p_api         = &g_transfer_on_dmac
-};
 gpt_instance_ctrl_t g_timer3_ctrl;
 #if 0
 const gpt_extended_pwm_cfg_t g_timer3_pwm_extend =
@@ -133,7 +47,7 @@ const gpt_extended_cfg_t g_timer3_extend =
     .capture_a_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
     .capture_b_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
     .capture_a_ipl       = (4),
-    .capture_b_ipl       = (5),
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT0_CAPTURE_COMPARE_A)
     .capture_a_irq       = VECTOR_NUMBER_GPT0_CAPTURE_COMPARE_A,
 #else
@@ -144,7 +58,7 @@ const gpt_extended_cfg_t g_timer3_extend =
 #else
     .capture_b_irq       = FSP_INVALID_VECTOR,
 #endif
-     .compare_match_value = { /* CMP_A */ (uint32_t)0x1d4c, /* CMP_B */ (uint32_t)0x0}, .compare_match_status = (0U << 1U) | 1U,
+     .compare_match_value = { /* CMP_A */ (uint32_t)0x1388, /* CMP_B */ (uint32_t)0x0}, .compare_match_status = (0U << 1U) | 1U,
     .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
     .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
 #if 0
@@ -178,7 +92,7 @@ const gpt_extended_cfg_t g_timer3_extend =
 const timer_cfg_t g_timer3_cfg =
 {
     .mode                = TIMER_MODE_PERIODIC,
-    /* Actual period: 0.00005 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x3a98, .duty_cycle_counts = 0x1d4c, .source_div = (timer_source_div_t)0,
+    /* Actual period: 1 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x11e1a300, .duty_cycle_counts = 0x8f0d180, .source_div = (timer_source_div_t)0,
     .channel             = 0,
     .p_callback          = g_timer3_50us_interrupt,
     /** If NULL then do not add & */
@@ -227,7 +141,7 @@ const dmac_extended_cfg_t g_transfer1_extend =
 #else
     .irq                 = FSP_INVALID_VECTOR,
 #endif
-    .ipl                 = (7),
+    .ipl                 = (12),
     .channel             = 1,
     .p_callback          = g_dma_ch1_callback,
     .p_context           = NULL,

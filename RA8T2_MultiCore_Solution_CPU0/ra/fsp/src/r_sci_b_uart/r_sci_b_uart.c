@@ -1567,6 +1567,7 @@ void sci_b_uart_txi_isr (void)
         p_ctrl->p_reg->CCR0 = ccr0_temp;
 
         p_ctrl->p_tx_src = NULL;
+        
 
         /* If a callback was provided, call it with the argument */
         if (NULL != p_ctrl->p_callback)
@@ -1580,7 +1581,7 @@ void sci_b_uart_txi_isr (void)
 }
 
 #endif
-
+#define DMA_USED 1
 #if (SCI_B_UART_CFG_RX_ENABLE)
 
 /*******************************************************************************************************************//**
@@ -1605,67 +1606,19 @@ void sci_b_uart_rxi_isr (void)
 
     /* Clear pending IRQ to make sure it doesn't fire again after exiting */
     R_BSP_IrqStatusClear(irq);
-
+   
+    
     /* Recover ISR context saved in open. */
     sci_b_uart_instance_ctrl_t * p_ctrl = (sci_b_uart_instance_ctrl_t *) R_FSP_IsrContextGet(irq);
-
- #if SCI_B_UART_CFG_DTC_SUPPORTED
-    if ((p_ctrl->p_cfg->p_transfer_rx == NULL) || (0 == p_ctrl->rx_dest_bytes))
- #endif
-    {
- #if (SCI_B_UART_CFG_FLOW_CONTROL_SUPPORT)
-        if (p_ctrl->flow_pin != SCI_B_UART_INVALID_16BIT_PARAM)
-        {
-            R_BSP_PinAccessEnable();
-
-            /* Pause the transmission of data from the other device. */
-            R_BSP_PinWrite(p_ctrl->flow_pin, SCI_B_UART_FLOW_CONTROL_ACTIVE);
-        }
- #endif
-
-        uint32_t data;
- #if SCI_B_UART_CFG_FIFO_SUPPORT
-        do
-        {
-            if ((p_ctrl->fifo_depth > 0U))
+       
+  if (0)//(p_ctrl->p_cfg->p_transfer_rx == NULL) || (0 == p_ctrl->rx_dest_bytes)
+  {
+     uint32_t data;
+       data = p_ctrl->p_reg->RDR_b.RDAT;
+        if (0 == p_ctrl->rx_dest_bytes)
             {
-                if (p_ctrl->p_reg->FRSR_b.R > 0U)
-                {
-                    if (2U == p_ctrl->data_bytes)
-                    {
-                        data = p_ctrl->p_reg->RDR & R_SCI_B0_RDR_RDAT_Msk;
-                    }
-                    else
-                    {
-                        data = p_ctrl->p_reg->RDR_BY;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-            else if (2U == p_ctrl->data_bytes)
- #else
-        {
-            if (2U == p_ctrl->data_bytes)
- #endif
-            {
-                data = p_ctrl->p_reg->RDR & R_SCI_B0_RDR_RDAT_Msk;
-            }
-            else
-            {
-                data = p_ctrl->p_reg->RDR_BY;
-            }
-
-            if (0 == p_ctrl->rx_dest_bytes)
-            {
-                /* If a callback was provided, call it with the argument */
-                if (NULL != p_ctrl->p_callback)
-                {
-                    /* Call user callback with the data. */
-                    r_sci_b_uart_call_callback(p_ctrl, data, UART_EVENT_RX_CHAR);
-                }
+                /* Call user callback with the data. */
+                r_sci_b_uart_call_callback(p_ctrl, data, UART_EVENT_RX_CHAR);
             }
             else
             {
@@ -1675,51 +1628,18 @@ void sci_b_uart_rxi_isr (void)
 
                 if (0 == p_ctrl->rx_dest_bytes)
                 {
-                    /* If a callback was provided, call it with the argument */
-                    if (NULL != p_ctrl->p_callback)
-                    {
-                        r_sci_b_uart_call_callback(p_ctrl, 0U, UART_EVENT_RX_COMPLETE);
-                    }
+                    r_sci_b_uart_call_callback(p_ctrl, 0U, UART_EVENT_RX_COMPLETE);
                 }
             }
+        
+  }
+  else{
+    p_ctrl->rx_dest_bytes = 0;
+        p_ctrl->p_rx_dest     = NULL;
 
- #if SCI_B_UART_CFG_FIFO_SUPPORT
-        } while ((p_ctrl->fifo_depth > 0U) && ((p_ctrl->p_reg->FRSR_b.R) > 0U));
-
-        if (p_ctrl->fifo_depth > 0U)
-        {
-            p_ctrl->p_reg->CFCLR |= SCI_B_UART_CFCLR_RDRFC_MASK;
-        }
-
- #else
-        }
- #endif
- #if (SCI_B_UART_CFG_FLOW_CONTROL_SUPPORT)
-        if (p_ctrl->flow_pin != SCI_B_UART_INVALID_16BIT_PARAM)
-        {
-            /* Resume the transmission of data from the other device. */
-            R_BSP_PinWrite(p_ctrl->flow_pin, SCI_B_UART_FLOW_CONTROL_INACTIVE);
-            R_BSP_PinAccessDisable();
-        }
- #endif
-    }
-
- #if SCI_B_UART_CFG_DTC_SUPPORTED
-    else
-    {
-        p_ctrl->rx_dest_bytes = 0;
-
-        p_ctrl->p_rx_dest = NULL;
-
-        /* If a callback was provided, call it with the argument */
-        if (NULL != p_ctrl->p_callback)
-        {
-            /* Call callback */
-            r_sci_b_uart_call_callback(p_ctrl, 0U, UART_EVENT_RX_COMPLETE);
-        }
-    }
- #endif
-
+        /* Call callback */
+        r_sci_b_uart_call_callback(p_ctrl, 0U, UART_EVENT_RX_COMPLETE);
+  }
     /* Restore context if RTOS is used */
     FSP_CONTEXT_RESTORE
 }

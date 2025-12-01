@@ -15,9 +15,9 @@
             .link[ELC_PERIPHERAL_IOPORT2] = ELC_EVENT_NONE, /* No allocation */
             .link[ELC_PERIPHERAL_IOPORT3] = ELC_EVENT_NONE, /* No allocation */
             .link[ELC_PERIPHERAL_IOPORT4] = ELC_EVENT_NONE, /* No allocation */
-            .link[ELC_PERIPHERAL_ADC0] = ELC_EVENT_GPT4_CAPTURE_COMPARE_A, /* GPT4 CAPTURE COMPARE A (Capture/Compare match A) */
-            .link[ELC_PERIPHERAL_ADC0_B] = ELC_EVENT_GPT4_CAPTURE_COMPARE_A, /* GPT4 CAPTURE COMPARE A (Capture/Compare match A) */
-            .link[ELC_PERIPHERAL_ADC0_C] = ELC_EVENT_GPT4_CAPTURE_COMPARE_A, /* GPT4 CAPTURE COMPARE A (Capture/Compare match A) */
+            .link[ELC_PERIPHERAL_ADC0] = ELC_EVENT_NONE, /* No allocation */
+            .link[ELC_PERIPHERAL_ADC0_B] = ELC_EVENT_NONE, /* No allocation */
+            .link[ELC_PERIPHERAL_ADC0_C] = ELC_EVENT_NONE, /* No allocation */
             .link[ELC_PERIPHERAL_ADC1] = ELC_EVENT_NONE, /* No allocation */
             .link[ELC_PERIPHERAL_ADC1_B] = ELC_EVENT_NONE, /* No allocation */
             .link[ELC_PERIPHERAL_ADC1_C] = ELC_EVENT_NONE, /* No allocation */
@@ -59,9 +59,6 @@
  #if (2U == BSP_FEATURE_ELC_VERSION)
             uint32_t elcsarbc = UINT32_MAX;
 
-            elcsarbc &=  ~(1U << ELC_PERIPHERAL_ADC0);
-            elcsarbc &=  ~(1U << ELC_PERIPHERAL_ADC0_B);
-            elcsarbc &=  ~(1U << ELC_PERIPHERAL_ADC0_C);
 
     #if BSP_SECONDARY_CORE_BUILD
             /* Write the settings to ELCSARn Registers. */
@@ -73,9 +70,6 @@
     #endif
  #else
             uint16_t elcsarbc[2] = {0xFFFFU, 0xFFFFU};
-            elcsarbc[ELC_PERIPHERAL_ADC0 / 16U] &= (uint16_t) ~(1U << (ELC_PERIPHERAL_ADC0 % 16U));
-            elcsarbc[ELC_PERIPHERAL_ADC0_B / 16U] &= (uint16_t) ~(1U << (ELC_PERIPHERAL_ADC0_B % 16U));
-            elcsarbc[ELC_PERIPHERAL_ADC0_C / 16U] &= (uint16_t) ~(1U << (ELC_PERIPHERAL_ADC0_C % 16U));
 
             /* Write the settings to ELCSARn Registers. */
             R_ELC->ELCSARA = 0xFFFEU;

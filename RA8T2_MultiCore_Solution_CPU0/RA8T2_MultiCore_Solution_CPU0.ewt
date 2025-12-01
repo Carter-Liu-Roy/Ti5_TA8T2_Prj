@@ -4041,4 +4041,13 @@
     <file>
         <name>$PROJ_DIR$\buildinfo.ipcf</name>
     </file>
+    <file>
+        <name>$PROJ_DIR$\script\fsp.icf</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\fsp_gen.icf</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\memory_regions.icf</name>
+    </file>
 </project>

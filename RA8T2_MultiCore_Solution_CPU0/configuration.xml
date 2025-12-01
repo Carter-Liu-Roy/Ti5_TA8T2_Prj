@@ -367,12 +367,7 @@
       <originalPack>Renesas.RA.6.2.0.pack</originalPack>
     </component>
   </raComponentSelection>
-  <raElcConfiguration>
-    <eventProduced event="event.gpt4.capture.compare.a"/>
-    <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0"/>
-    <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0b"/>
-    <eventConsumed event="event.gpt4.capture.compare.a" link="link.adc0c"/>
-  </raElcConfiguration>
+  <raElcConfiguration/>
   <raIcuConfiguration/>
   <raModuleConfiguration>
     <module id="module.driver.ioport_on_ioport.0">
@@ -404,7 +399,7 @@
       <property id="module.driver.timer.mode" value="module.driver.timer.mode.mode_periodic"/>
       <property id="module.driver.timer.period" value="0x10000"/>
       <property id="module.driver.timer.compare_match.a.status" value="module.driver.timer.compare_match.a.status.disabled"/>
-      <property id="module.driver.timer.compare_match.a.value" value="0"/>
+      <property id="module.driver.timer.compare_match.a.value" value="1000"/>
       <property id="module.driver.timer.compare_match.b.status" value="module.driver.timer.compare_match.b.status.disabled"/>
       <property id="module.driver.timer.compare_match.b.value" value="0"/>
       <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_raw_counts"/>
@@ -1373,7 +1368,7 @@
       <property id="module.driver.transfer.num_blocks" value="0"/>
       <property id="module.driver.transfer.activation_event" value="_signal.event.sci2.rxi"/>
       <property id="module.driver.transfer.p_callback" value="g_dma_ch1_callback"/>
-      <property id="module.driver.transfer.ipl" value="board.icu.common.irq.priority7"/>
+      <property id="module.driver.transfer.ipl" value="board.icu.common.irq.priority12"/>
       <property id="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
       <property id="module.driver.transfer.offset" value="1"/>
       <property id="module.driver.transfer.src.buffer" value="1"/>
@@ -1382,12 +1377,12 @@
       <property id="module.driver.timer.name" value="g_timer3"/>
       <property id="module.driver.timer.channel" value="0"/>
       <property id="module.driver.timer.mode" value="module.driver.timer.mode.mode_periodic"/>
-      <property id="module.driver.timer.period" value="50"/>
+      <property id="module.driver.timer.period" value="300000000"/>
       <property id="module.driver.timer.compare_match.a.status" value="module.driver.timer.compare_match.a.status.enabled"/>
-      <property id="module.driver.timer.compare_match.a.value" value="25"/>
+      <property id="module.driver.timer.compare_match.a.value" value="5000"/>
       <property id="module.driver.timer.compare_match.b.status" value="module.driver.timer.compare_match.b.status.disabled"/>
       <property id="module.driver.timer.compare_match.b.value" value="0"/>
-      <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_usec"/>
+      <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_raw_counts"/>
       <property id="module.driver.timer.gtior.gtioa.initial_output_level" value="module.driver.timer.gtior.gtioa.initial_output_level.low"/>
       <property id="module.driver.timer.gtior.gtioa.cycle_end_output_level" value="module.driver.timer.gtior.gtioa.cycle_end_output_level.retain"/>
       <property id="module.driver.timer.gtior.gtioa.compare_match_output_level" value="module.driver.timer.gtior.gtioa.compare_match_output_level.retain"/>
@@ -1416,7 +1411,7 @@
       <property id="module.driver.timer.p_callback" value="g_timer3_50us_interrupt"/>
       <property id="module.driver.timer.ipl" value="_disabled"/>
       <property id="module.driver.timer.capture_a_ipl" value="board.icu.common.irq.priority4"/>
-      <property id="module.driver.timer.capture_b_ipl" value="board.icu.common.irq.priority5"/>
+      <property id="module.driver.timer.capture_b_ipl" value="_disabled"/>
       <property id="module.driver.timer.trough_ipl" value="_disabled"/>
       <property id="module.driver.timer.extra" value="module.driver.timer.extra.disabled"/>
       <property id="module.driver.timer.poeg_link" value="enum.driver.poeg.channels.poeg_link_poeg0"/>
@@ -1435,40 +1430,6 @@
     <module id="module.driver.elc_on_elc.1758055884">
       <property id="module.driver.elc.name" value="g_elc"/>
     </module>
-    <module id="module.driver.transfer_on_dmac.450243591">
-      <property id="module.driver.transfer.name" value="g_transfer2"/>
-      <property id="module.driver.transfer.channel" value="2"/>
-      <property id="module.driver.transfer.mode" value="module.driver.transfer.mode.mode_normal"/>
-      <property id="module.driver.transfer.size" value="module.driver.transfer.size.size_2_byte"/>
-      <property id="module.driver.transfer.dest_addr_mode" value="module.driver.transfer.dest_addr_mode.addr_mode_fixed"/>
-      <property id="module.driver.transfer.src_addr_mode" value="module.driver.transfer.src_addr_mode.addr_mode_fixed"/>
-      <property id="module.driver.transfer.repeat_area" value="module.driver.transfer.repeat_area.repeat_area_source"/>
-      <property id="module.driver.transfer.length" value="1"/>
-      <property id="module.driver.transfer.num_blocks" value="0"/>
-      <property id="module.driver.transfer.activation_event" value="_signal.event.gpt0.capture.compare.a"/>
-      <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.ipl" value="_disabled"/>
-      <property id="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
-      <property id="module.driver.transfer.offset" value="1"/>
-      <property id="module.driver.transfer.src.buffer" value="1"/>
-    </module>
-    <module id="module.driver.transfer_on_dmac.708383998">
-      <property id="module.driver.transfer.name" value="g_transfer3"/>
-      <property id="module.driver.transfer.channel" value="3"/>
-      <property id="module.driver.transfer.mode" value="module.driver.transfer.mode.mode_normal"/>
-      <property id="module.driver.transfer.size" value="module.driver.transfer.size.size_2_byte"/>
-      <property id="module.driver.transfer.dest_addr_mode" value="module.driver.transfer.dest_addr_mode.addr_mode_fixed"/>
-      <property id="module.driver.transfer.src_addr_mode" value="module.driver.transfer.src_addr_mode.addr_mode_fixed"/>
-      <property id="module.driver.transfer.repeat_area" value="module.driver.transfer.repeat_area.repeat_area_source"/>
-      <property id="module.driver.transfer.length" value="1"/>
-      <property id="module.driver.transfer.num_blocks" value="0"/>
-      <property id="module.driver.transfer.activation_event" value="_signal.event.gpt0.capture.compare.a"/>
-      <property id="module.driver.transfer.p_callback" value="NULL"/>
-      <property id="module.driver.transfer.ipl" value="_disabled"/>
-      <property id="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
-      <property id="module.driver.transfer.offset" value="1"/>
-      <property id="module.driver.transfer.src.buffer" value="1"/>
-    </module>
     <context id="_hal.0">
       <stack module="module.driver.ioport_on_ioport.0"/>
       <stack module="module.driver.three_phase_on_gpt_three_phase.711182912">
@@ -1484,8 +1445,6 @@
       <stack module="module.driver.transfer_on_dmac.78226880"/>
       <stack module="module.driver.timer_on_gpt.1466078323"/>
       <stack module="module.driver.elc_on_elc.1758055884"/>
-      <stack module="module.driver.transfer_on_dmac.450243591"/>
-      <stack module="module.driver.transfer_on_dmac.708383998"/>
     </context>
     <config id="config.driver.sci_b_uart">
       <property id="config.driver.sci_b_uart.param_checking_enable" value="config.driver.sci_b_uart.param_checking_enable.bsp"/>
@@ -1525,6 +1484,7 @@
       <configSetting altId="jtag_fslash_swd.mode.jtag.free" configurationId="jtag_fslash_swd.mode"/>
       <configSetting altId="p213.gpt0.gtioc0a" configurationId="p213"/>
       <configSetting altId="p213.gpio_mode.gpio_mode_peripheral" configurationId="p213.gpio_mode"/>
+      <configSetting altId="sci2.mode.asynchronousuart.free" configurationId="sci2.mode"/>
     </pincfg>
   </raPinConfiguration>
 </raConfiguration>

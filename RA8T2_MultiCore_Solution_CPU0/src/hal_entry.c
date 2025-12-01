@@ -4,56 +4,55 @@
 #if (1 == BSP_MULTICORE_PROJECT) && BSP_TZ_SECURE_BUILD
 bsp_ipc_semaphore_handle_t g_core_start_semaphore =
 {
-    .semaphore_num = 0
+  .semaphore_num = 0
 };
 #endif
 uint8_t g_one_shot_expired = false;
 uint8_t g_compareA = false;
 uint8_t g_compareB = false;
+uint32_t g_CCR0_Read;
+uint32_t g_CCR0_Write_Start;
+uint32_t g_CCR0_Write_Stop;
+/*******************20k interrupt routine****************************        
 
+*********************************************************************/
 void g_gpt4_callback(timer_callback_args_t * p_args){
   if(p_args->event == TIMER_EVENT_COMPARE_A){
-  g_compareA = false;
-  
+    g_compareA = false;
+    
+    
   }
-
+  
 }
 void g_timer3_50us_interrupt(timer_callback_args_t * p_args){
-    if (NULL != p_args)
+  if (NULL != p_args)
+  {
+    if (TIMER_EVENT_CYCLE_END  == p_args->event)
     {
-        if (TIMER_EVENT_CYCLE_END  == p_args->event)
-        {
-            /* Set boolean flag on One-Shot mode timer expired */
-            g_one_shot_expired = true;
-        }
-        else if (TIMER_EVENT_COMPARE_A  == p_args->event)
-        {
-            /* Set boolean flag on One-Shot mode timer expired */
-            g_compareA = true;
-        }
-        else if (TIMER_EVENT_COMPARE_B  == p_args->event)
-        {
-            /* Set boolean flag on One-Shot mode timer expired */
-            g_compareB = true;
-        }
-        else if (TIMER_EVENT_TROUGH  == p_args->event)
-        {
-            /* Set boolean flag on One-Shot mode timer expired */
-            g_one_shot_expired = true;
-        }
-        else;
+      /* Set boolean flag on One-Shot mode timer expired */
+      g_one_shot_expired = true;
     }
-
+    else if (TIMER_EVENT_COMPARE_A  == p_args->event)
+    {
+      /* Set boolean flag on One-Shot mode timer expired */
+      g_compareA = true;
+      
+    }
+    else if (TIMER_EVENT_COMPARE_B  == p_args->event)
+    {
+      /* Set boolean flag on One-Shot mode timer expired */
+      g_compareB = true;
+    }
+    else if (TIMER_EVENT_TROUGH  == p_args->event)
+    {
+      /* Set boolean flag on One-Shot mode timer expired */
+      g_one_shot_expired = true;
+    }
+    else;
+  }
+  
 }
-void g_adc_ch1_callback(transfer_callback_args_t * p_args){
 
-
-}
-
-void g_adc_ch0_callback(transfer_callback_args_t * p_args){
-
-
-}
 uint8_t g_callback_called;
 uint32_t g_last_message_received;
 uint32_t g_last_message_send = 0;
@@ -68,207 +67,179 @@ uint8_t g_recBuf[8];
 uint8_t  g_out_of_band_received[8];
 volatile bool adc_end_flg;
 uint32_t fac_ccr0_trig;
-uint32_t g_CCR0_Read;
-uint32_t g_CCR0_Write;
 
 void user_uart_callback(uart_callback_args_t * p_args){
-    /* Handle the UART event */
-    switch (p_args->event)
-    {
-        /* Received a character */
-        case UART_EVENT_RX_CHAR:
-        {
-            g_out_of_band_received[g_out_of_band_index++] = (uint8_t) p_args->data;
 
-            break;
-        }
-        /* Receive complete */
-        case UART_EVENT_RX_COMPLETE:
-        {
-            g_receive_complete = 1;
-            break;
-        }
-        /* Transmit complete */
-        case UART_EVENT_TX_COMPLETE:
-        {
-            g_transfer_complete = 1;
-            break;
-        }
-        default:
-        {
-        }
-    }
-
+  
 }
 uint16_t  p_adc_data[3];
 
 void g_adc_scan_end(adc_callback_args_t * p_args){
-
+  
   if(p_args->event == ADC_EVENT_SCAN_COMPLETE){
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_0, &p_adc_data[0]);
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_1, &p_adc_data[1]);
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_2, &p_adc_data[2]);
   }
   adc_end_flg = true;
-
+  
 }
 
-void g_dma_ch0_end(transfer_callback_args_t * p_args){
+void g_dma_ch0_end(transfer_callback_args_t * p_args){// 73-->TDR  ch1
 
-
+  R_DMAC_Reconfigure(&g_transfer0_ctrl, g_transfer0_cfg.p_info);
+  
 }
-void g_dma_ch1_callback(transfer_callback_args_t * p_args){
-
-
+static uint32_t counter1,counter2,counter_shift,counter3,counter4;//two couner, counter is used to measure one time read time shift, counter2 is the real measured running time.
+void g_dma_ch1_callback(transfer_callback_args_t * p_args){//used tiem: 1us
+  g_receive_complete = 1;
+  
+  counter3 = R_GPT0->GTCNT_b.GTCNT;
+  
+  g_encoder_rs485_ctrl.p_reg->CCR0 = g_CCR0_Write_Stop;
+  R_BSP_IrqDisable((IRQn_Type) SCI2_TXI_IRQn);
+  R_BSP_IrqDisable((IRQn_Type) SCI2_RXI_IRQn);
+  R_BSP_IrqDisable((IRQn_Type) SCI2_TEI_IRQn);
+  g_encoder_rs485_ctrl.p_reg->CCR0 = g_CCR0_Read;
+  R_BSP_IrqEnable((IRQn_Type) SCI2_TXI_IRQn);
+  R_BSP_IrqEnable((IRQn_Type) SCI2_RXI_IRQn);
+  g_encoder_rs485_ctrl.p_reg->CCR0_b.TIE = 1;
+#if 0 //reconfig costs longer time
+  R_DMAC_Reconfigure(&g_transfer1_ctrl, g_transfer1_cfg.p_info);
+#else
+  g_transfer1_ctrl.p_reg->DMCRA_b.DMCRAL = 8;
+  g_transfer1_ctrl.p_reg->DMDAR = (uint32_t )&g_recBuf;
+  g_transfer1_ctrl.p_reg->DMCNT_b.DTE = 1;
+  
+#endif
+  counter4 = R_GPT0->GTCNT_b.GTCNT;
+  counter4 = counter4 - counter3 - counter_shift;
+  //417* 3.3ns = 1.3us
 }
+
 
 /*******************************************************************************************************************//**
- * main() is generated by the RA Configuration editor and is used to generate threads if an RTOS is used.  This function
- * is called by main() when no RTOS is used.
- **********************************************************************************************************************/
+* main() is generated by the RA Configuration editor and is used to generate threads if an RTOS is used.  This function
+* is called by main() when no RTOS is used.
+**********************************************************************************************************************/
 void hal_entry(void)
 {
-    /* TODO: add your own code here */
-
-    /* Wake up 2nd core if this is first core and we are inside a multicore project. */
+  /* TODO: add your own code here */
+  
+  /* Wake up 2nd core if this is first core and we are inside a multicore project. */
 #if (0 == _RA_CORE) && (1 == BSP_MULTICORE_PROJECT) && !BSP_TZ_NONSECURE_BUILD
-
+  
 #if BSP_TZ_SECURE_BUILD
-    /* Take semaphore so 2nd core can clear it */
-    R_BSP_IpcSemaphoreTake(&g_core_start_semaphore);
+  /* Take semaphore so 2nd core can clear it */
+  R_BSP_IpcSemaphoreTake(&g_core_start_semaphore);
 #endif
-
-    R_BSP_SecondaryCoreStart();
-
+  
+  R_BSP_SecondaryCoreStart();
+  
 #if BSP_TZ_SECURE_BUILD
-    /* Wait for 2nd core to start and clear semaphore */
-    while(FSP_ERR_IN_USE == R_BSP_IpcSemaphoreTake(&g_core_start_semaphore))
-    {
-        ;
-    }
+  /* Wait for 2nd core to start and clear semaphore */
+  while(FSP_ERR_IN_USE == R_BSP_IpcSemaphoreTake(&g_core_start_semaphore))
+  {
+    ;
+  }
 #endif
 #endif
-
+  
 #if (1 == _RA_CORE) && (1 == BSP_MULTICORE_PROJECT) && BSP_TZ_SECURE_BUILD
-    /* Signal to 1st core that 2nd core has started */
-    R_BSP_IpcSemaphoreGive(&g_core_start_semaphore);
+  /* Signal to 1st core that 2nd core has started */
+  R_BSP_IpcSemaphoreGive(&g_core_start_semaphore);
 #endif
-
-
+  
+  
 #if BSP_TZ_SECURE_BUILD
-    /* Enter non-secure code */
-    R_BSP_NonSecureEnter();
+  /* Enter non-secure code */
+  R_BSP_NonSecureEnter();
 #endif
-    R_IPC_Open(&g_ipc0_ctrl, &g_ipc0_cfg);//0: receive data from core 0
-    R_IPC_Open(&g_ipc1_ctrl, &g_ipc1_cfg);//1: send data yo core 0
-    R_IPC_MessageSend(&g_ipc0_ctrl, g_last_message_send);
+  R_IPC_Open(&g_ipc0_ctrl, &g_ipc0_cfg);//0: receive data from core 0
+  R_IPC_Open(&g_ipc1_ctrl, &g_ipc1_cfg);//1: send data yo core 0
+  R_IPC_MessageSend(&g_ipc0_ctrl, g_last_message_send);
+  
+  R_SCI_B_UART_Open(&g_encoder_rs485_ctrl, &g_encoder_rs485_cfg);
+#if 1
+  g_encoder_rs485_ctrl.p_reg->CCR3_b.CKE = 1;           //Enable baudrate clock output
+  g_encoder_rs485_ctrl.p_reg->CCR3_b.DEN = 1;
+  g_encoder_rs485_ctrl.p_reg->CCR0_b.TIE = 1;
+  // R_BSP_IrqDisable((IRQn_Type) SCI2_RXI_IRQn);
+  
+  
+  g_CCR0_Read = g_encoder_rs485_ctrl.p_reg->CCR0;
+  g_CCR0_Write_Stop = g_CCR0_Read & 0xFFEFFFEE;
+  
+  
+  R_GPT_Open(&g_timer3_ctrl, &g_timer3_cfg);
+
+  R_DMAC_Open(&g_transfer0_ctrl, &g_transfer0_cfg);
+  g_transfer0_cfg.p_info->p_src = (void const *) g_sendCMD;
+  g_transfer0_cfg.p_info->p_dest = (void *)0x40358204;//R_SCI2->TDR;// ->TDR;
+  R_DMAC_Reconfigure(&g_transfer0_ctrl, g_transfer0_cfg.p_info);
+  
+  R_DMAC_Open(&g_transfer1_ctrl, &g_transfer1_cfg);
+  g_transfer1_cfg.p_info->p_src = (void const * volatile)(0x40358200);
+  g_transfer1_cfg.p_info->p_dest = g_recBuf;
+  g_transfer1_cfg.p_info->length = 8;
+  R_DMAC_Reconfigure(&g_transfer1_ctrl, g_transfer1_cfg.p_info);
+  
+  
+  R_GPT_Start(&g_timer3_ctrl);
+  /***get one reading time*/
+  counter1 = R_GPT0->GTCNT_b.GTCNT;
+  counter2 = R_GPT0->GTCNT_b.GTCNT;//21 * 3.33 = 70ns
+  counter_shift = counter2 - counter1;
+/***********************************************************************
+itcm:  772 * 3.34 = 2.57us  879
+sram:  840 * 3.34 = 2.8us   954
+mram:  852 * 3.34 = 2.84us 
+
+************************************************************************/
 #if 0
-    Current_Iabc.Ia = 1.234;
-    Current_Iabc.Ib = 1.234;
-    Current_Iabc.Ic = 1.234;
-    Voltage_DQ.Vd = 2.2;
-    Voltage_DQ.Vq = 3.333;
-    Transf_Cos_Sin.Cos = 0.8;
-    Transf_Cos_Sin.Sin = 0.9;
-    Current_Ialpha_beta.Ialpha = 0.87;
-    Current_Ialpha_beta.Ibeta = 0.98;
-    Voltage_Alpha_Beta.Valpha = 0.876;
-    Voltage_Alpha_Beta.Vbeta = 2.111;
-    
-       
-
-    adc_end_flg = false;
-    R_ADC_B_Open(&g_adc0_ctrl, &g_adc0_cfg);
-    R_ADC_B_ScanCfg(&g_adc0_ctrl, &g_adc0_scan_cfg);
-    R_BSP_IrqEnable((IRQn_Type) ADC_EVENT_SCAN_COMPLETE);
-    R_ADC_B_ScanStart(&g_adc0_ctrl);
-    R_SCI_B_UART_Open(&g_encoder_rs485_ctrl, &g_encoder_rs485_cfg);
-
-     g_encoder_rs485_ctrl.p_reg->CCR3_b.CKE = 1;  //Enable baudrate clock output
-      g_encoder_rs485_ctrl.p_reg->CCR3_b.DEN = 1;
-    g_encoder_rs485_ctrl.p_reg->CCR0_b.TIE = 1;
-    g_CCR0_Read = g_encoder_rs485_ctrl.p_reg->CCR0;
-    g_CCR0_Write = g_CCR0_Read & 0xFFFFFFEE;
-    
-    R_DMAC_Open(&g_transfer0_ctrl, &g_transfer0_cfg);
-    g_transfer0_info.p_src = (void const *) g_sendCMD;
-    g_transfer0_info.p_dest = (void *)g_encoder_rs485_ctrl.p_reg->TDR;
-    R_DMAC_Reconfigure(&g_transfer0_ctrl, &g_transfer0_info);
-    
-    R_DMAC_Open(&g_transfer1_ctrl, &g_transfer1_cfg);
-    g_transfer1_info.p_src = (void const *) g_encoder_rs485_ctrl.p_reg->RDR;
-    g_transfer1_info.p_dest = (void *)g_recBuf;
-    R_DMAC_Reconfigure(&g_transfer1_ctrl, &g_transfer1_info);
-    
-    R_DMAC_Open(&g_transfer2_ctrl, &g_transfer2_cfg);
-    R_DMAC_Open(&g_transfer3_ctrl, &g_transfer3_cfg);
-    g_transfer2_cfg.p_info->p_src = &g_CCR0_Write;
-    g_transfer2_cfg.p_info->p_dest = (void *)& g_encoder_rs485_ctrl.p_reg->CCR0;
-        
-    g_transfer3_cfg.p_info->p_src = &g_CCR0_Read;
-    g_transfer3_cfg.p_info->p_dest = (void *)& g_encoder_rs485_ctrl.p_reg->CCR0;
-    
-    R_DMAC_Reconfigure(&g_transfer2_ctrl, g_transfer2_cfg.p_info);
-    R_DMAC_Reconfigure(&g_transfer3_ctrl, g_transfer3_cfg.p_info);
-    
-    R_DMAC_Enable(&g_transfer0_ctrl);
-    R_DMAC_Enable(&g_transfer1_ctrl);
-    R_DMAC_Enable(&g_transfer2_ctrl);
-    R_DMAC_Enable(&g_transfer3_ctrl);
-        
-
-    
-    R_GPT_Open(&g_timer3_ctrl, &g_timer3_cfg);
-    //ADTRAUEN = 1, ADTRADEN = 1, ADTRBUEN = 0, and ADTRBDEN = 1.
-   // g_timer3_ctrl.p_reg->GTADTRA = 0x1000;
-    
-    R_ELC_Open(&g_elc_ctrl, &g_elc_cfg);
-    R_GPT_Start(&g_timer3_ctrl);
-  //  R_GPT_THREE_PHASE_Open(&g_three_phase0_ctrl, &g_three_phase0_cfg);
-   // R_GPT_THREE_PHASE_Start(&g_three_phase0_ctrl);
-    
-    #endif
-    adc_end_flg = false;
-    R_ADC_B_Open(&g_adc0_ctrl, &g_adc0_cfg);
-    R_ADC_B_ScanCfg(&g_adc0_ctrl, &g_adc0_scan_cfg);
-    R_BSP_IrqEnable((IRQn_Type) ADC_EVENT_SCAN_COMPLETE);
-   // R_ADC_B_ScanStart(&g_adc0_ctrl);
-    R_ADC_B->ADTRGGPT0_b.TRGGPTAm = 0x10;//ADTRGGPT0.TRGGPTA4 = 1 :config ch0 trigger to be GPT ch4 cmp a
-    R_ADC_B->ADTRGGPT1_b.TRGGPTAm = 0x10;//ADTRGGPT1.TRGGPTA4 = 1
-    R_ADC_B->ADTRGGPT2_b.TRGGPTAm = 0x10;//ADTRGGPT2.TRGGPTA4 = 1
-   
-    R_ADC_B->ADTRGENR_b.STTRGENn = 1; // STTRGEN0 = 1: Enable the A/D conversion start trigger
-    R_GPT_THREE_PHASE_Open(&g_three_phase0_ctrl, &g_three_phase0_cfg);
-   
-   // R_ELC_Open(&g_elc_ctrl, &g_elc_cfg);
-  //  R_ELC_Enable(&g_elc_ctrl);
-    R_GPT_THREE_PHASE_Start(&g_three_phase0_ctrl);
-    while(1){
-#if 0
-      for(uint8_t cnt = 0; cnt<10;cnt++){//calculate 10 times
-        Angle_To_Cos_Sin(30.0, &Transf_Cos_Sin);  //
-        Clarke_Transf(Current_Iabc, &Current_Ialpha_beta);//
-        Rev_Park_Transf(Voltage_DQ, Transf_Cos_Sin, &Voltage_Alpha_Beta);//
-        Park_Transf(Current_Ialpha_beta, Transf_Cos_Sin, &Current_Idq);//
-      }
+ // __disable_irq();
+  float angle_temp = 90;
+   counter3 = R_GPT0->GTCNT_b.GTCNT;
+  //  for(uint8_t cnt = 0; cnt<10;cnt++){       //calculate 10 times, 
+      Angle_To_Cos_Sin(angle_temp,  &Transf_Cos_Sin);  //
+      Clarke_Transf(Current_Iabc, &Current_Ialpha_beta);//
+      Rev_Park_Transf(Voltage_DQ, Transf_Cos_Sin, &Voltage_Alpha_Beta);//
+      Park_Transf(Current_Ialpha_beta, Transf_Cos_Sin, &Current_Idq);//
+   // }
+   counter4 = R_GPT0->GTCNT_b.GTCNT;
+   counter4 = counter4-counter3-counter_shift;
+  // __enable_irq();
 #endif
-      R_BSP_SoftwareDelay(1, BSP_DELAY_UNITS_SECONDS);//28 mram  33us itcm
-        
-      if(g_callback_called){
-        g_callback_called = 0;
-        if(g_last_message_received == g_last_message_send){
-          g_last_message_send++;
-          R_IPC_MessageSend(&g_ipc0_ctrl, g_last_message_send);
-        }
+#endif
+  
+  
+  adc_end_flg = false;
+  R_ADC_B_Open(&g_adc0_ctrl, &g_adc0_cfg);
+  R_ADC_B_ScanCfg(&g_adc0_ctrl, &g_adc0_scan_cfg);
+  R_BSP_IrqEnable((IRQn_Type) ADC_EVENT_SCAN_COMPLETE);
+  // R_ADC_B_ScanStart(&g_adc0_ctrl);  do not use software trigger
+  R_ADC_B->ADTRGGPT0_b.TRGGPTAm = 0x10;//ADTRGGPT0.TRGGPTA4 = 1 :config ch0 trigger to be GPT ch4 cmp a
+  R_ADC_B->ADTRGGPT1_b.TRGGPTAm = 0x10;//ADTRGGPT1.TRGGPTA4 = 1
+  R_ADC_B->ADTRGGPT2_b.TRGGPTAm = 0x10;//ADTRGGPT2.TRGGPTA4 = 1
+  
+  R_ADC_B->ADTRGENR_b.STTRGENn = 1; // STTRGEN0 = 1: Enable the A/D conversion start trigger
+  R_GPT_THREE_PHASE_Open(&g_three_phase0_ctrl, &g_three_phase0_cfg);
+  
+  R_GPT_THREE_PHASE_Start(&g_three_phase0_ctrl);
+  while(1){
+
+    R_BSP_SoftwareDelay(1, BSP_DELAY_UNITS_SECONDS);//28 mram  33us itcm
+    
+    if(g_callback_called){
+      g_callback_called = 0;
+      if(g_last_message_received == g_last_message_send){
+        g_last_message_send++;
+        R_IPC_MessageSend(&g_ipc0_ctrl, g_last_message_send);
       }
-     // memset(&g_recBuf, 0, 8);
-     // R_SCI_B_UART_Read(&g_encoder_rs485_ctrl, g_recBuf, 8);
-      
-     // R_SCI_B_UART_Write(&g_encoder_rs485_ctrl, g_sendCMD, 1);
-     
-    
-    
     }
+
+    
+  }
 }
 /********************************************************
 Test for M85 -> M33 and M33 --> M85 communication
@@ -277,18 +248,18 @@ ipc ch1 is used for M33 sned data to M85
 *********************************************************/
 void g_ipc0_callback (ipc_callback_args_t * p_args)//send
 {
-    /* Check for message received event */
-
+  /* Check for message received event */
+  
 }
 
 void g_ipc1_callback (ipc_callback_args_t * p_args)//receive
 {
-    if (IPC_EVENT_MESSAGE_RECEIVED & p_args->event)
-    {
-        g_callback_called       = true;
-        g_last_message_received = p_args->message;
-    }
-
+  if (IPC_EVENT_MESSAGE_RECEIVED & p_args->event)
+  {
+    g_callback_called       = true;
+    g_last_message_received = p_args->message;
+  }
+  
 }
 #if BSP_TZ_SECURE_BUILD
 
@@ -298,7 +269,7 @@ BSP_CMSE_NONSECURE_ENTRY void template_nonsecure_callable ();
 /* Trustzone Secure Projects require at least one nonsecure callable function in order to build (Remove this if it is not required to build). */
 BSP_CMSE_NONSECURE_ENTRY void template_nonsecure_callable ()
 {
-
+  
 }
 FSP_CPP_FOOTER
 

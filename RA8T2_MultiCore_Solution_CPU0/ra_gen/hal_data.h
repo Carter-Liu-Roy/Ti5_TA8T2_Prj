@@ -4,10 +4,10 @@
 #include <stdint.h>
 #include "bsp_api.h"
 #include "common_data.h"
-#include "r_dmac.h"
-#include "r_transfer_api.h"
 #include "r_gpt.h"
 #include "r_timer_api.h"
+#include "r_dmac.h"
+#include "r_transfer_api.h"
 #include "r_sci_b_uart.h"
             #include "r_uart_api.h"
 #include "r_adc_b.h"
@@ -16,26 +16,6 @@
 #include "r_gpt_three_phase.h"
             #include "r_three_phase_api.h"
 FSP_HEADER
-/* Transfer on DMAC Instance. */
-extern const transfer_instance_t g_transfer3;
-
-/** Access the DMAC instance using these structures when calling API functions directly (::p_api is not used). */
-extern dmac_instance_ctrl_t g_transfer3_ctrl;
-extern const transfer_cfg_t g_transfer3_cfg;
-
-#ifndef NULL
-void NULL(transfer_callback_args_t * p_args);
-#endif
-/* Transfer on DMAC Instance. */
-extern const transfer_instance_t g_transfer2;
-
-/** Access the DMAC instance using these structures when calling API functions directly (::p_api is not used). */
-extern dmac_instance_ctrl_t g_transfer2_ctrl;
-extern const transfer_cfg_t g_transfer2_cfg;
-
-#ifndef NULL
-void NULL(transfer_callback_args_t * p_args);
-#endif
 /** Timer on GPT Instance. */
 extern const timer_instance_t g_timer3;
 

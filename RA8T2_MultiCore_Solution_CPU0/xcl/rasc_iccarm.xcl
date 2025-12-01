@@ -1,13 +1,13 @@
 // generated extended command line file - do not edit
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/src"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/fsp/inc"
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/fsp/inc/instances"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_gen"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/fsp/inc/api"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_cfg/fsp_cfg/bsp"
--I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_cfg/fsp_cfg"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/fsp/inc"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/src"
 -I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/arm/CMSIS_6/CMSIS/Core/Include"
--D_RENESAS_RA_
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_cfg/fsp_cfg"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_cfg/fsp_cfg/bsp"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra/fsp/inc/api"
+-I"C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0/ra_gen"
 -D_RA_CORE=CPU0
+-D_RENESAS_RA_
 -D_RA_ORDINAL=1

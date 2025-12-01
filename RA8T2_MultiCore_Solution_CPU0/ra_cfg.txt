@@ -553,9 +553,6 @@ FSP Configuration
   User Events
     
   User Event Links
-    GPT4 CAPTURE COMPARE A (Capture/Compare match A): ADC16A0
-    GPT4 CAPTURE COMPARE A (Capture/Compare match A): ADC16B0
-    GPT4 CAPTURE COMPARE A (Capture/Compare match A): ADC16C0
     
   Module "I/O Port (r_ioport)"
     Parameter Checking: Default (BSP)
@@ -617,7 +614,7 @@ FSP Configuration
         General: Mode: Triangle-wave PWM (symmetric, Mode 1)
         General: Period: 20
         General: Compare Match: Compare Match A: Status: Disabled
-        General: Compare Match: Compare Match A: Compare match value: 0
+        General: Compare Match: Compare Match A: Compare match value: 1000
         General: Compare Match: Compare Match B: Status: Disabled
         General: Compare Match: Compare Match B: Compare match value: 0
         General: Period Unit: Kilohertz
@@ -1586,7 +1583,7 @@ FSP Configuration
       Number of Blocks (Valid only in Repeat,Block or Repeat-Block Mode): 0
       Activation Source: SCI2 RXI (Receive data full)
       Callback: g_dma_ch1_callback
-      Transfer End Interrupt Priority: Priority 7
+      Transfer End Interrupt Priority: Priority 12
       Interrupt Frequency: Interrupt after all transfers have completed
       Offset value (Valid only when address mode is Offset addition): 1
       Source Buffer Size: 1
@@ -1595,12 +1592,12 @@ FSP Configuration
       General: Name: g_timer3
       General: Channel: 0
       General: Mode: Periodic
-      General: Period: 50
+      General: Period: 300000000
       General: Compare Match: Compare Match A: Status: Enabled
-      General: Compare Match: Compare Match A: Compare match value: 25
+      General: Compare Match: Compare Match A: Compare match value: 5000
       General: Compare Match: Compare Match B: Status: Disabled
       General: Compare Match: Compare Match B: Compare match value: 0
-      General: Period Unit: Microseconds
+      General: Period Unit: Raw Counts
       Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
       Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
       Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Retain
@@ -1629,7 +1626,7 @@ FSP Configuration
       Interrupts: Callback: g_timer3_50us_interrupt
       Interrupts: Overflow/Crest Interrupt Priority: Disabled
       Interrupts: Capture/Compare match A Interrupt Priority: Priority 4
-      Interrupts: Capture/Compare match B Interrupt Priority: Priority 5
+      Interrupts: Capture/Compare match B Interrupt Priority: Disabled
       Interrupts: Underflow/Trough Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
@@ -1647,38 +1644,4 @@ FSP Configuration
       
     Instance "g_elc Event Link Controller (r_elc)"
       Name: g_elc
-      
-    Instance "g_transfer2 Transfer (r_dmac) GPT0 CAPTURE COMPARE A (Capture/Compare match A)"
-      Name: g_transfer2
-      Channel: 2
-      Mode: Normal
-      Transfer Size: 2 Bytes
-      Destination Address Mode: Fixed
-      Source Address Mode: Fixed
-      Repeat Area (Unused in Normal Mode): Source
-      Number of Transfers: 1
-      Number of Blocks (Valid only in Repeat,Block or Repeat-Block Mode): 0
-      Activation Source: GPT0 CAPTURE COMPARE A (Capture/Compare match A)
-      Callback: NULL
-      Transfer End Interrupt Priority: Disabled
-      Interrupt Frequency: Interrupt after all transfers have completed
-      Offset value (Valid only when address mode is Offset addition): 1
-      Source Buffer Size: 1
-      
-    Instance "g_transfer3 Transfer (r_dmac) GPT0 CAPTURE COMPARE A (Capture/Compare match A)"
-      Name: g_transfer3
-      Channel: 3
-      Mode: Normal
-      Transfer Size: 2 Bytes
-      Destination Address Mode: Fixed
-      Source Address Mode: Fixed
-      Repeat Area (Unused in Normal Mode): Source
-      Number of Transfers: 1
-      Number of Blocks (Valid only in Repeat,Block or Repeat-Block Mode): 0
-      Activation Source: GPT0 CAPTURE COMPARE A (Capture/Compare match A)
-      Callback: NULL
-      Transfer End Interrupt Priority: Disabled
-      Interrupt Frequency: Interrupt after all transfers have completed
-      Offset value (Valid only when address mode is Offset addition): 1
-      Source Buffer Size: 1
       

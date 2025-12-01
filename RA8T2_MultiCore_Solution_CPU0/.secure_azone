@@ -188,8 +188,6 @@
         <peripheral name="DMA_DMAC0.CPU0" group="DMA_DMAC" security="s"/>
         <peripheral name="DMA_DMAC1.CPU0" group="DMA_DMAC" security="s"/>
         <peripheral name="GPT0.CPU0" group="GPT" security="s"/>
-        <peripheral name="DMA_DMAC2.CPU0" group="DMA_DMAC" security="s"/>
-        <peripheral name="DMA_DMAC3.CPU0" group="DMA_DMAC" security="s"/>
         <peripheral name="ICU.CPU0">
             <slot name="IRQ0.CPU0" secure="true"/>
             <slot name="IRQ1.CPU0" secure="true"/>
@@ -212,12 +210,6 @@
             <slot name="IRQ18.CPU0" secure="true"/>
             <slot name="IRQ19.CPU0" secure="true"/>
             <slot name="IRQ20.CPU0" secure="true"/>
-            <slot name="IRQ21.CPU0" secure="true"/>
-        </peripheral>
-        <peripheral name="ELC.CPU0">
-            <slot name="ADC0.CPU0" secure="true"/>
-            <slot name="ADC0_B.CPU0" secure="true"/>
-            <slot name="ADC0_C.CPU0" secure="true"/>
         </peripheral>
     </partition>
 </azone>

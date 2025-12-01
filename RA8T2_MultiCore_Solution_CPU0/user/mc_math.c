@@ -14,7 +14,7 @@ CURRENT_ABC_DEF Current_Iabc;
 
 //#pragma default_function_attributes = @ ".ram_code_from_flash"
 //#pragma default_function_attributes = @ ".itcm_code_from_flash"
-void Angle_To_Cos_Sin(float angle_temp,TRANSF_COS_SIN_DEF* cos_sin_temp)
+void Angle_To_Cos_Sin(float angle_temp,TRANSF_COS_SIN_DEF *cos_sin_temp)
 {
   cos_sin_temp->Cos = cos(angle_temp);
   cos_sin_temp->Sin = sin(angle_temp);
@@ -38,7 +38,7 @@ void Rev_Park_Transf(VOLTAGE_DQ_DEF v_dq_temp,TRANSF_COS_SIN_DEF cos_sin_temp,VO
   v_alpha_beta_temp->Valpha = cos_sin_temp.Cos * v_dq_temp.Vd - cos_sin_temp.Sin * v_dq_temp.Vq;
   v_alpha_beta_temp->Vbeta  = cos_sin_temp.Sin * v_dq_temp.Vd + cos_sin_temp.Cos * v_dq_temp.Vq;
 }
-
+//#pragma default_function_attributes =
 uint8_t sector;
 
 
@@ -47,7 +47,7 @@ float test_Tcmp1,test_Tcmp2,test_Tcmp3;
 float Tcmp1 = 0.0F,Tcmp2 = 0.0F,Tcmp3 = 0.0F;
 
 
-//#pragma default_function_attributes =
+
 
 
 
