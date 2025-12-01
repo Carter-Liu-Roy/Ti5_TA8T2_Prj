@@ -69,8 +69,8 @@
         #define DMAC0_INT_IRQn          ((IRQn_Type) 18) /* DMAC0 INT (DMAC0 transfer end) */
         #define VECTOR_NUMBER_DMAC1_INT ((IRQn_Type) 19) /* DMAC1 INT (DMAC1 transfer end) */
         #define DMAC1_INT_IRQn          ((IRQn_Type) 19) /* DMAC1 INT (DMAC1 transfer end) */
-        #define VECTOR_NUMBER_GPT0_CAPTURE_COMPARE_A ((IRQn_Type) 20) /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
-        #define GPT0_CAPTURE_COMPARE_A_IRQn          ((IRQn_Type) 20) /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
+        #define VECTOR_NUMBER_GPT3_CAPTURE_COMPARE_A ((IRQn_Type) 20) /* GPT3 CAPTURE COMPARE A (Capture/Compare match A) */
+        #define GPT3_CAPTURE_COMPARE_A_IRQn          ((IRQn_Type) 20) /* GPT3 CAPTURE COMPARE A (Capture/Compare match A) */
         /* The number of entries required for the ICU vector table. */
         #define BSP_ICU_VECTOR_NUM_ENTRIES (21)
 

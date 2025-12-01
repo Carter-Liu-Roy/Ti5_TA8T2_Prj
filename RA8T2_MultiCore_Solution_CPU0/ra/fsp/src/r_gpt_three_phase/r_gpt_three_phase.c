@@ -197,7 +197,7 @@ fsp_err_t R_GPT_THREE_PHASE_Start (three_phase_ctrl_t * const p_ctrl)
 #endif
 
     /* Start timer */
-    p_instance_ctrl->p_reg[THREE_PHASE_CHANNEL_U]->GTSTR = p_instance_ctrl->channel_mask;
+    p_instance_ctrl->p_reg[THREE_PHASE_CHANNEL_U]->GTSTR = p_instance_ctrl->channel_mask | (1 << 3) ;//ADD GPT CH3 to start at the same time
 
     return FSP_SUCCESS;
 }

@@ -24,7 +24,7 @@
             [17] = sci_b_uart_eri_isr, /* SCI2 ERI (Receive error) */
             [18] = dmac_int_isr, /* DMAC0 INT (DMAC0 transfer end) */
             [19] = dmac_int_isr, /* DMAC1 INT (DMAC1 transfer end) */
-            [20] = gpt_capture_compare_a_isr, /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
+            [20] = gpt_capture_compare_a_isr, /* GPT3 CAPTURE COMPARE A (Capture/Compare match A) */
         };
         #if BSP_FEATURE_ICU_HAS_IELSR
         const bsp_interrupt_event_t g_interrupt_event_link_select[BSP_ICU_VECTOR_NUM_ENTRIES] =
@@ -49,7 +49,7 @@
             [17] = BSP_PRV_VECT_ENUM(EVENT_SCI2_ERI,GROUP1), /* SCI2 ERI (Receive error) */
             [18] = BSP_PRV_VECT_ENUM(EVENT_DMAC0_INT,GROUP2), /* DMAC0 INT (DMAC0 transfer end) */
             [19] = BSP_PRV_VECT_ENUM(EVENT_DMAC1_INT,GROUP3), /* DMAC1 INT (DMAC1 transfer end) */
-            [20] = BSP_PRV_VECT_ENUM(EVENT_GPT0_CAPTURE_COMPARE_A,GROUP4), /* GPT0 CAPTURE COMPARE A (Capture/Compare match A) */
+            [20] = BSP_PRV_VECT_ENUM(EVENT_GPT3_CAPTURE_COMPARE_A,GROUP4), /* GPT3 CAPTURE COMPARE A (Capture/Compare match A) */
         };
         #endif
         #endif

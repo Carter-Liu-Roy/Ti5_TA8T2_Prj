@@ -73,14 +73,20 @@ void user_uart_callback(uart_callback_args_t * p_args){
   
 }
 uint16_t  p_adc_data[3];
+static uint32_t counter1,counter2,counter_shift,counter3,counter4;//two couner, counter is used to measure one time read time shift, counter2 is the real measured running time.
+uint32_t adc_scan_duration;
+float adc_scan_time;
 
 void g_adc_scan_end(adc_callback_args_t * p_args){
-  
+  adc_scan_duration = R_GPT4->GTCNT;
   if(p_args->event == ADC_EVENT_SCAN_COMPLETE){
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_0, &p_adc_data[0]);
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_1, &p_adc_data[1]);
     R_ADC_B_Read(&g_adc0_ctrl, ADC_CHANNEL_2, &p_adc_data[2]);
   }
+  adc_scan_duration = adc_scan_duration - counter_shift - R_GPT4->GTCCR[0];
+  adc_scan_time = adc_scan_duration*3.33;
+  if(adc_scan_time != 0)
   adc_end_flg = true;
   
 }
@@ -90,11 +96,11 @@ void g_dma_ch0_end(transfer_callback_args_t * p_args){// 73-->TDR  ch1
   R_DMAC_Reconfigure(&g_transfer0_ctrl, g_transfer0_cfg.p_info);
   
 }
-static uint32_t counter1,counter2,counter_shift,counter3,counter4;//two couner, counter is used to measure one time read time shift, counter2 is the real measured running time.
+
 void g_dma_ch1_callback(transfer_callback_args_t * p_args){//used tiem: 1us
   g_receive_complete = 1;
   
-  counter3 = R_GPT0->GTCNT_b.GTCNT;
+  counter3 = R_GPT1->GTCNT_b.GTCNT;
   
   g_encoder_rs485_ctrl.p_reg->CCR0 = g_CCR0_Write_Stop;
   R_BSP_IrqDisable((IRQn_Type) SCI2_TXI_IRQn);
@@ -112,7 +118,7 @@ void g_dma_ch1_callback(transfer_callback_args_t * p_args){//used tiem: 1us
   g_transfer1_ctrl.p_reg->DMCNT_b.DTE = 1;
   
 #endif
-  counter4 = R_GPT0->GTCNT_b.GTCNT;
+  counter4 = R_GPT1->GTCNT_b.GTCNT;
   counter4 = counter4 - counter3 - counter_shift;
   //417* 3.3ns = 1.3us
 }
@@ -172,7 +178,8 @@ void hal_entry(void)
   
   
   R_GPT_Open(&g_timer3_ctrl, &g_timer3_cfg);
-
+  R_GPT_Open(&g_sys_counter_ctrl, &g_sys_counter_cfg);
+#if 1
   R_DMAC_Open(&g_transfer0_ctrl, &g_transfer0_cfg);
   g_transfer0_cfg.p_info->p_src = (void const *) g_sendCMD;
   g_transfer0_cfg.p_info->p_dest = (void *)0x40358204;//R_SCI2->TDR;// ->TDR;
@@ -183,12 +190,13 @@ void hal_entry(void)
   g_transfer1_cfg.p_info->p_dest = g_recBuf;
   g_transfer1_cfg.p_info->length = 8;
   R_DMAC_Reconfigure(&g_transfer1_ctrl, g_transfer1_cfg.p_info);
+#endif
   
   
-  R_GPT_Start(&g_timer3_ctrl);
+  R_GPT_Start(&g_sys_counter_ctrl);
   /***get one reading time*/
-  counter1 = R_GPT0->GTCNT_b.GTCNT;
-  counter2 = R_GPT0->GTCNT_b.GTCNT;//21 * 3.33 = 70ns
+  counter1 = R_GPT1->GTCNT_b.GTCNT;
+  counter2 = R_GPT1->GTCNT_b.GTCNT;//21 * 3.33 = 70ns
   counter_shift = counter2 - counter1;
 /***********************************************************************
 itcm:  772 * 3.34 = 2.57us  879
@@ -196,26 +204,34 @@ sram:  840 * 3.34 = 2.8us   954
 mram:  852 * 3.34 = 2.84us 
 
 ************************************************************************/
-#if 0
- // __disable_irq();
+#if 1
+  __disable_irq();
   float angle_temp = 90;
-   counter3 = R_GPT0->GTCNT_b.GTCNT;
+  volatile float running_time = 0.0;
+  counter3 = R_GPT1->GTCNT_b.GTCNT;
   //  for(uint8_t cnt = 0; cnt<10;cnt++){       //calculate 10 times, 
       Angle_To_Cos_Sin(angle_temp,  &Transf_Cos_Sin);  //
       Clarke_Transf(Current_Iabc, &Current_Ialpha_beta);//
       Rev_Park_Transf(Voltage_DQ, Transf_Cos_Sin, &Voltage_Alpha_Beta);//
       Park_Transf(Current_Ialpha_beta, Transf_Cos_Sin, &Current_Idq);//
    // }
-   counter4 = R_GPT0->GTCNT_b.GTCNT;
+   counter4 = R_GPT1->GTCNT_b.GTCNT;
    counter4 = counter4-counter3-counter_shift;
-  // __enable_irq();
+   running_time = counter4*3.333;  // MRAM:2.769722us USE CMSIS 1.1  2.4us SRAM: 2.749725us   ITCM: 2.536413us  2.8us
+   if(running_time != 0)//
+   __enable_irq();
 #endif
+   
+  // R_GPT_Start(&g_timer3_ctrl);
+   
+   
 #endif
   
   
   adc_end_flg = false;
   R_ADC_B_Open(&g_adc0_ctrl, &g_adc0_cfg);
   R_ADC_B_ScanCfg(&g_adc0_ctrl, &g_adc0_scan_cfg);
+ // R_ADC_B->ADDOPCRC0_b.ADPRC
   R_BSP_IrqEnable((IRQn_Type) ADC_EVENT_SCAN_COMPLETE);
   // R_ADC_B_ScanStart(&g_adc0_ctrl);  do not use software trigger
   R_ADC_B->ADTRGGPT0_b.TRGGPTAm = 0x10;//ADTRGGPT0.TRGGPTA4 = 1 :config ch0 trigger to be GPT ch4 cmp a

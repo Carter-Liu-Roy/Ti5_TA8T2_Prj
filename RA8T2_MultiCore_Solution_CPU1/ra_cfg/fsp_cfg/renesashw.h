@@ -151,7 +151,7 @@ void ethercat_ssc_port_run_led (uint8_t * run_led_address, uint8_t * err_led_add
                                   ESC_LED_OFF);                                                                           \
     }
 
-#define     HW_GetALEventRegister()                   (((( UINT16 ESCMEM *) g_ethercat_ssc_port0_ctrl. \
+#define     HW_GetALEventRegister()                   ((((volatile UINT16 ESCMEM *) g_ethercat_ssc_port0_ctrl. \
                                                          p_reg_esc)[((ESC_AL_EVENT_OFFSET) >>                         \
                                                                      1)                                               \
                                                         ]))

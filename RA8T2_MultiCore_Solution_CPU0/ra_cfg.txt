@@ -652,7 +652,7 @@ FSP Configuration
         Extra Features: Output Disable: POEG Link: POEG Channel 0
         Extra Features: Output Disable: Output Disable POEG Trigger: 
         Extra Features: ADC Trigger: Start Event Trigger (Channels with GTINTAD only): Trigger Event A/D Converter Start Request A During Up Counting
-        Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 2000
+        Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 1000
         Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
         Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Up (Raw Counts): 0
         Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Down (Raw Counts) (Channels with GTDVD only): 0
@@ -1554,7 +1554,7 @@ FSP Configuration
       Interrupts: Transmit End Interrupt Priority: Priority 12
       Interrupts: Error Interrupt Priority: Priority 12
       
-    Instance "g_transfer0 Transfer (r_dmac) GPT0 CAPTURE COMPARE A (Capture/Compare match A)"
+    Instance "g_transfer0 Transfer (r_dmac) GPT3 CAPTURE COMPARE A (Capture/Compare match A)"
       Name: g_transfer0
       Channel: 0
       Mode: Normal
@@ -1564,7 +1564,7 @@ FSP Configuration
       Repeat Area (Unused in Normal Mode): Source
       Number of Transfers: 1
       Number of Blocks (Valid only in Repeat,Block or Repeat-Block Mode): 0
-      Activation Source: GPT0 CAPTURE COMPARE A (Capture/Compare match A)
+      Activation Source: GPT3 CAPTURE COMPARE A (Capture/Compare match A)
       Callback: g_dma_ch0_end
       Transfer End Interrupt Priority: Priority 5
       Interrupt Frequency: Interrupt after all transfers have completed
@@ -1590,11 +1590,11 @@ FSP Configuration
       
     Instance "g_timer3 Timer, General PWM (r_gpt)"
       General: Name: g_timer3
-      General: Channel: 0
+      General: Channel: 3
       General: Mode: Periodic
-      General: Period: 300000000
+      General: Period: 15000
       General: Compare Match: Compare Match A: Status: Enabled
-      General: Compare Match: Compare Match A: Compare match value: 5000
+      General: Compare Match: Compare Match A: Compare match value: 7500
       General: Compare Match: Compare Match B: Status: Disabled
       General: Compare Match: Compare Match B: Compare match value: 0
       General: Period Unit: Raw Counts
@@ -1644,4 +1644,58 @@ FSP Configuration
       
     Instance "g_elc Event Link Controller (r_elc)"
       Name: g_elc
+      
+    Instance "g_sys_counter Timer, General PWM (r_gpt)"
+      General: Name: g_sys_counter
+      General: Channel: 1
+      General: Mode: Periodic
+      General: Period: 0xffffffff
+      General: Compare Match: Compare Match A: Status: Disabled
+      General: Compare Match: Compare Match A: Compare match value: 0
+      General: Compare Match: Compare Match B: Status: Disabled
+      General: Compare Match: Compare Match B: Compare match value: 0
+      General: Period Unit: Raw Counts
+      Output: Custom Waveform: GTIOA: Initial Output Level: Pin Level Low
+      Output: Custom Waveform: GTIOA: Cycle End Output Level: Pin Level Retain
+      Output: Custom Waveform: GTIOA: Compare Match Output Level: Pin Level Retain
+      Output: Custom Waveform: GTIOA: Retain Output Level at Count Stop: Disabled
+      Output: Custom Waveform: GTIOB: Initial Output Level: Pin Level Low
+      Output: Custom Waveform: GTIOB: Cycle End Output Level: Pin Level Retain
+      Output: Custom Waveform: GTIOB: Compare Match Output Level: Pin Level Retain
+      Output: Custom Waveform: GTIOB: Retain Output Level at Count Stop: Disabled
+      Output: Custom Waveform: Custom Waveform Enable: Disabled
+      Output: Duty Cycle Percent (only applicable in PWM mode): 50
+      Output: GTIOCA Output Enabled: False
+      Output: GTIOCA Stop Level: Pin Level Low
+      Output: GTIOCB Output Enabled: False
+      Output: GTIOCB Stop Level: Pin Level Low
+      Input: Count Up Source: 
+      Input: Count Down Source: 
+      Input: Start Source: 
+      Input: Stop Source: 
+      Input: Clear Source: 
+      Input: Capture A Source: 
+      Input: Capture B Source: 
+      Input: Noise Filter A Sampling Clock Select: No Filter
+      Input: Noise Filter B Sampling Clock Select: No Filter
+      Pin Polarity: GTIOCnA Polarity: Normal
+      Pin Polarity: GTIOCnB Polarity: Normal
+      Interrupts: Callback: NULL
+      Interrupts: Overflow/Crest Interrupt Priority: Disabled
+      Interrupts: Capture/Compare match A Interrupt Priority: Disabled
+      Interrupts: Capture/Compare match B Interrupt Priority: Disabled
+      Interrupts: Underflow/Trough Interrupt Priority: Disabled
+      Extra Features: Extra Features: Disabled
+      Extra Features: Output Disable: POEG Link: POEG Channel 0
+      Extra Features: Output Disable: Output Disable POEG Trigger: 
+      Extra Features: ADC Trigger: Start Event Trigger (Channels with GTINTAD only): 
+      Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 0
+      Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
+      Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Up (Raw Counts): 0
+      Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Down (Raw Counts) (Channels with GTDVD only): 0
+      Extra Features: Interrupt Skipping (Channels with GTITC only): Interrupt to Count: None
+      Extra Features: Interrupt Skipping (Channels with GTITC only): Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping (Channels with GTITC only): Skip ADC Events: None
+      Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
+      Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
       

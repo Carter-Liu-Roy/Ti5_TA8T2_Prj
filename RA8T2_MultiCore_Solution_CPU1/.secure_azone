@@ -187,9 +187,8 @@
         <peripheral name="GPT6.CPU0" group="GPT" security="s"/>
         <peripheral name="DMA_DMAC0.CPU0" group="DMA_DMAC" security="s"/>
         <peripheral name="DMA_DMAC1.CPU0" group="DMA_DMAC" security="s"/>
-        <peripheral name="GPT0.CPU0" group="GPT" security="s"/>
-        <peripheral name="DMA_DMAC2.CPU0" group="DMA_DMAC" security="s"/>
-        <peripheral name="DMA_DMAC3.CPU0" group="DMA_DMAC" security="s"/>
+        <peripheral name="GPT3.CPU0" group="GPT" security="s"/>
+        <peripheral name="GPT1.CPU0" group="GPT" security="s"/>
         <peripheral name="ICU.CPU0">
             <slot name="IRQ0.CPU0" secure="true"/>
             <slot name="IRQ1.CPU0" secure="true"/>
@@ -212,19 +211,6 @@
             <slot name="IRQ18.CPU0" secure="true"/>
             <slot name="IRQ19.CPU0" secure="true"/>
             <slot name="IRQ20.CPU0" secure="true"/>
-            <slot name="IRQ21.CPU0" secure="true"/>
-            <slot name="IRQ22.CPU0" secure="true"/>
-            <slot name="IRQ23.CPU0" secure="true"/>
-            <slot name="IRQ24.CPU0" secure="true"/>
-            <slot name="IRQ25.CPU0" secure="true"/>
-            <slot name="IRQ26.CPU0" secure="true"/>
-            <slot name="IRQ27.CPU0" secure="true"/>
-            <slot name="IRQ28.CPU0" secure="true"/>
-            <slot name="IRQ29.CPU0" secure="true"/>
-            <slot name="IRQ30.CPU0" secure="true"/>
-        </peripheral>
-        <peripheral name="ELC.CPU0">
-            <slot name="ADC0.CPU0" secure="true"/>
         </peripheral>
         <memory parent="OPTION_SETTING_OFS1" name="OPTION_SETTING_OFS1_CPU0_S" size="0x0" offset="0x0" security="s" Pname="CPU0"/>
         <memory parent="OPTION_SETTING_OFS3" name="OPTION_SETTING_OFS3_CPU0_S" size="0x0" offset="0x0" security="s" Pname="CPU0"/>
@@ -349,9 +335,8 @@
             <assign group="GPT" peripheral="GPT6"/>
             <assign group="DMA_DMAC" peripheral="DMA_DMAC0"/>
             <assign group="DMA_DMAC" peripheral="DMA_DMAC1"/>
-            <assign group="GPT" peripheral="GPT0"/>
-            <assign group="DMA_DMAC" peripheral="DMA_DMAC2"/>
-            <assign group="DMA_DMAC" peripheral="DMA_DMAC3"/>
+            <assign group="GPT" peripheral="GPT3"/>
+            <assign group="GPT" peripheral="GPT1"/>
             <assign peripheral="ICU.IRQ0"/>
             <assign peripheral="ICU.IRQ1"/>
             <assign peripheral="ICU.IRQ2"/>
@@ -373,17 +358,6 @@
             <assign peripheral="ICU.IRQ18"/>
             <assign peripheral="ICU.IRQ19"/>
             <assign peripheral="ICU.IRQ20"/>
-            <assign peripheral="ICU.IRQ21"/>
-            <assign peripheral="ICU.IRQ22"/>
-            <assign peripheral="ICU.IRQ23"/>
-            <assign peripheral="ICU.IRQ24"/>
-            <assign peripheral="ICU.IRQ25"/>
-            <assign peripheral="ICU.IRQ26"/>
-            <assign peripheral="ICU.IRQ27"/>
-            <assign peripheral="ICU.IRQ28"/>
-            <assign peripheral="ICU.IRQ29"/>
-            <assign peripheral="ICU.IRQ30"/>
-            <assign peripheral="ELC.ADC0"/>
         </zone>
     </zones>
 </azone>
