@@ -440,8 +440,8 @@
       <property id="module.driver.timer.extra" value="module.driver.timer.extra.disabled"/>
       <property id="module.driver.timer.poeg_link" value="enum.driver.poeg.channels.poeg_link_poeg0"/>
       <property id="module.driver.timer.output_disable" value=""/>
-      <property id="module.driver.timer.adc_trigger" value="module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"/>
-      <property id="module.driver.timer.adc_a_compare_match" value="1000"/>
+      <property id="module.driver.timer.adc_trigger" value="module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"/>
+      <property id="module.driver.timer.adc_a_compare_match" value="5"/>
       <property id="module.driver.timer.adc_b_compare_match" value="0"/>
       <property id="module.driver.timer.dead_time_count_up" value="0"/>
       <property id="module.driver.timer.dead_time_count_down" value="0"/>
@@ -1383,7 +1383,7 @@
       <property id="module.driver.timer.mode" value="module.driver.timer.mode.mode_periodic"/>
       <property id="module.driver.timer.period" value="15000"/>
       <property id="module.driver.timer.compare_match.a.status" value="module.driver.timer.compare_match.a.status.enabled"/>
-      <property id="module.driver.timer.compare_match.a.value" value="7500"/>
+      <property id="module.driver.timer.compare_match.a.value" value="14987"/>
       <property id="module.driver.timer.compare_match.b.status" value="module.driver.timer.compare_match.b.status.disabled"/>
       <property id="module.driver.timer.compare_match.b.value" value="0"/>
       <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_raw_counts"/>

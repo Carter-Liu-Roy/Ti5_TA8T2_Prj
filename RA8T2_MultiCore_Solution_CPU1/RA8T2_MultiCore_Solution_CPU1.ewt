@@ -4062,4 +4062,7 @@
     <file>
         <name>$PROJ_DIR$\buildinfo.ipcf</name>
     </file>
+    <file>
+        <name>$PROJ_DIR$\Debug\Exe\RA8T2_MultiCore_Solution_CPU1.out</name>
+    </file>
 </project>

@@ -167,7 +167,7 @@ const gpt_extended_cfg_t g_timer3_extend =
 #else
     .capture_b_irq       = FSP_INVALID_VECTOR,
 #endif
-     .compare_match_value = { /* CMP_A */ (uint32_t)0x1d4c, /* CMP_B */ (uint32_t)0x0}, .compare_match_status = (0U << 1U) | 1U,
+     .compare_match_value = { /* CMP_A */ (uint32_t)0x3a8b, /* CMP_B */ (uint32_t)0x0}, .compare_match_status = (0U << 1U) | 1U,
     .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
     .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
 #if 0
@@ -3575,10 +3575,10 @@ const gpt_extended_pwm_cfg_t g_timer0_pwm_extend =
 #endif
     .poeg_link           = GPT_POEG_LINK_POEG0,
     .output_disable      = (gpt_output_disable_t) ( GPT_OUTPUT_DISABLE_NONE),
-    .adc_trigger         = (gpt_adc_trigger_t) (GPT_ADC_TRIGGER_UP_COUNT_START_ADC_A |  GPT_ADC_TRIGGER_NONE),
+    .adc_trigger         = (gpt_adc_trigger_t) (GPT_ADC_TRIGGER_DOWN_COUNT_START_ADC_A |  GPT_ADC_TRIGGER_NONE),
     .dead_time_count_up  = 0,
     .dead_time_count_down = 0,
-    .adc_a_compare_match = 1000,
+    .adc_a_compare_match = 5,
     .adc_b_compare_match = 0,
     .interrupt_skip_source = GPT_INTERRUPT_SKIP_SOURCE_NONE,
     .interrupt_skip_count  = GPT_INTERRUPT_SKIP_COUNT_0,

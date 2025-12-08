@@ -651,8 +651,8 @@ FSP Configuration
         Extra Features: Extra Features: Enabled
         Extra Features: Output Disable: POEG Link: POEG Channel 0
         Extra Features: Output Disable: Output Disable POEG Trigger: 
-        Extra Features: ADC Trigger: Start Event Trigger (Channels with GTINTAD only): Trigger Event A/D Converter Start Request A During Up Counting
-        Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 1000
+        Extra Features: ADC Trigger: Start Event Trigger (Channels with GTINTAD only): Trigger Event A/D Converter Start Request A During Down Counting
+        Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 5
         Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
         Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Up (Raw Counts): 0
         Extra Features: Dead Time (Value range varies with Channel): Dead Time Count Down (Raw Counts) (Channels with GTDVD only): 0
@@ -1594,7 +1594,7 @@ FSP Configuration
       General: Mode: Periodic
       General: Period: 15000
       General: Compare Match: Compare Match A: Status: Enabled
-      General: Compare Match: Compare Match A: Compare match value: 7500
+      General: Compare Match: Compare Match A: Compare match value: 14987
       General: Compare Match: Compare Match B: Status: Disabled
       General: Compare Match: Compare Match B: Compare match value: 0
       General: Period Unit: Raw Counts

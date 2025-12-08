@@ -12,6 +12,8 @@ C:\iar\ewarm-9.70.2\arm\bin\armproc.dll
 
  --device_macro=C:\iar\ewarm-9.70.2\arm/config/debugger/Renesas/R7KA8T2_CPU0.dmac
 
+ --macro=C:\Users\a5134085\FSPSmartConfigurator\RA8T2_MultiCore_Solution\RA8T2_MultiCore_Solution_CPU0\script\enable_cpu1.mac
+
  
 
 

@@ -1,0 +1,7 @@
+execUserReset()
+{
+__message "**** execUserReset: Setting up secondary core ****";
+__writeMemory32(0x00000001, 0x4000F054, "Memory");
+__writeMemory32(0x02080000, 0x4000F044, "Memory");
+__writeMemory32(0xA501, 0x4000F064, "Memory");
+}

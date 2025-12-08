@@ -1,20 +1,5 @@
 <?xml version="1.0"?>
 <settings>
-    <DebugChecksum>
-        <Checksum>3652198408</Checksum>
-    </DebugChecksum>
-    <PlDriver>
-        <FirstRun>0</FirstRun>
-        <MemConfigValue>C:\iar\ewarm-9.70.2\arm\config\debugger\Renesas\R7KA8T2LF_CPU0.ddf</MemConfigValue>
-    </PlDriver>
-    <Disassembly>
-        <MixedMode>1</MixedMode>
-        <InstrCount>0</InstrCount>
-    </Disassembly>
-    <Trace1>
-        <Enabled>0</Enabled>
-        <ShowSource>1</ShowSource>
-    </Trace1>
     <TerminalIO>
         <InputSource>1</InputSource>
         <InputMode2>10</InputMode2>
@@ -35,6 +20,48 @@
         <LimitSize>0</LimitSize>
         <ByteLimit>50</ByteLimit>
     </Stack>
+    <Trace1>
+        <Enabled>0</Enabled>
+        <ShowSource>1</ShowSource>
+    </Trace1>
+    <Interrupts>
+        <Enabled>1</Enabled>
+    </Interrupts>
+    <MemConfig>
+        <Base>1</Base>
+        <Manual>0</Manual>
+        <Ddf>1</Ddf>
+        <TypeViol>0</TypeViol>
+        <Stop>1</Stop>
+    </MemConfig>
+    <Simulator>
+        <Freq>10000000</Freq>
+        <FreqHi>0</FreqHi>
+        <MultiCoreRunAll>1</MultiCoreRunAll>
+    </Simulator>
+    <PlDriver>
+        <FirstRun>0</FirstRun>
+        <MemConfigValue>C:\iar\ewarm-9.70.2\arm\config\debugger\Renesas\R7KA8T2LF_CPU1.ddf</MemConfigValue>
+    </PlDriver>
+    <JLinkDriver>
+        <jlinkResetStyle>12</jlinkResetStyle>
+        <jlinkResetStrategy>0</jlinkResetStrategy>
+        <MultiCoreRunAll>0</MultiCoreRunAll>
+        <CpuHaltOnBreakpointSet>_ 0</CpuHaltOnBreakpointSet>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+        <CStepIntDis>_ 0</CStepIntDis>
+    </JLinkDriver>
+    <ArmDriver>
+        <EnableCache>0</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+    </ArmDriver>
+    <DebugChecksum>
+        <Checksum>3815082256</Checksum>
+    </DebugChecksum>
+    <Disassembly>
+        <MixedMode>1</MixedMode>
+        <InstrCount>0</InstrCount>
+    </Disassembly>
     <CallStack>
         <ShowArgs>0</ShowArgs>
     </CallStack>
@@ -42,14 +69,6 @@
         <StopOnUncaught>_ 0</StopOnUncaught>
         <StopOnThrow>_ 0</StopOnThrow>
     </Exceptions>
-    <JLinkDriver>
-        <jlinkResetStyle>13</jlinkResetStyle>
-        <jlinkResetStrategy>0</jlinkResetStrategy>
-        <MultiCoreRunAll>0</MultiCoreRunAll>
-        <CpuHaltOnBreakpointSet>_ 0</CpuHaltOnBreakpointSet>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
-        <CStepIntDis>_ 0</CStepIntDis>
-    </JLinkDriver>
     <SWOTraceHWSettings>
         <OverrideDefaultClocks>0</OverrideDefaultClocks>
         <CpuClock>125000000</CpuClock>
@@ -68,16 +87,6 @@
         <ITMportsLogFile>0</ITMportsLogFile>
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
-    <ArmDriver>
-        <EnableCache>0</EnableCache>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
-    </ArmDriver>
-    <Registers>
-        <regBase0>GPT320_NS_GTPR 10</regBase0>
-    </Registers>
-    <struct_types>
-        <Fmt0>timer_callback_args_t-capture	4	0</Fmt0>
-    </struct_types>
     <Trace2>
         <Enabled>0</Enabled>
         <ShowSource>0</ShowSource>
@@ -157,9 +166,7 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\RA8T2_MultiCore_Solution_CPU1\src\hal_entry.c}.35.1" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\ra\fsp\src\r_adc_b\r_adc_b.c}.1407.5" 0 0 1 "" 0 "" 0</Bp1>
-        <Bp2>_ 1 "EMUL_CODE" "{$PROJ_DIR$\src\hal_entry.c}.31.3" 0 0 1 "" 0 "" 0</Bp2>
-        <Count>3</Count>
+        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\RA8T2_MultiCore_Solution_CPU1\src\hal_entry.c}.87.9" 0 0 1 "" 0 "" 0</Bp0>
+        <Count>1</Count>
     </Breakpoints2>
 </settings>

@@ -13,6 +13,9 @@ uint8_t g_compareB = false;
 uint32_t g_CCR0_Read;
 uint32_t g_CCR0_Write_Start;
 uint32_t g_CCR0_Write_Stop;
+volatile uint32_t adc_cnt = 0;
+volatile uint32_t comppwm_cnt = 0 ;
+volatile uint32_t encoder_cnt = 0;
 /*******************20k interrupt routine****************************        
 
 *********************************************************************/
@@ -25,6 +28,7 @@ void g_gpt4_callback(timer_callback_args_t * p_args){
   
 }
 void g_timer3_50us_interrupt(timer_callback_args_t * p_args){
+  comppwm_cnt ++;
   if (NULL != p_args)
   {
     if (TIMER_EVENT_CYCLE_END  == p_args->event)
@@ -89,6 +93,8 @@ void g_adc_scan_end(adc_callback_args_t * p_args){
   if(adc_scan_time != 0)
   adc_end_flg = true;
   
+  adc_cnt ++;
+  
 }
 
 void g_dma_ch0_end(transfer_callback_args_t * p_args){// 73-->TDR  ch1
@@ -99,6 +105,7 @@ void g_dma_ch0_end(transfer_callback_args_t * p_args){// 73-->TDR  ch1
 
 void g_dma_ch1_callback(transfer_callback_args_t * p_args){//used tiem: 1us
   g_receive_complete = 1;
+  encoder_cnt ++;
   
   counter3 = R_GPT1->GTCNT_b.GTCNT;
   
