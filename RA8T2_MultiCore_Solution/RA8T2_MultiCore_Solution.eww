@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspace>
     <project>
-        <path>$WS_DIR$\..\RA8T2_MultiCore_Solution_CPU1_Debug\CPU1_Debug.ewp</path>
-    </project>
-    <project>
         <path>$WS_DIR$\RA8T2_MultiCore_Solution.ewp</path>
     </project>
     <project>
